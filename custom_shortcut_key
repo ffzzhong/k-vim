@@ -1,0 +1,58 @@
+F1  关掉，防止跳出帮助
+F2  行号开关
+F3  项目结构开关
+F4  tagbar开关
+F5  快速运行
+F6  语法开关
+F9  显示打印字符开关
+F10 换行开关
+空格 /开启查找
+Y   =y$   复制到行尾
+w!!  以sudo的权限保存
+kj   <Esc>，不用到角落去按esc了
+
+ctrl + jkhl 进行上下左右窗口跳转,不需要ctrl+w+jkhl
+ctrl+n  相对行号绝对行号变换，默认用相对行号
+
+
+,r 快速运行
+,sa   全选(select all)
+,gs  GitGutter插件，显示当前的修改 diff
+,? 基于 ffz 的:nmap, 显示所有的键位映射
+,/ 去除匹配高亮
+,n open/close NerdTree
+# 向上查找光标所在处单词
+* 向下查找光标所在出单词
+
+[sd] 匹配成对的标签，跳转
+        %
+
+[sd]file find, kien/ctrlp.vim
+        ,p 快速查找文件
+        ctrl + j/k 上下移动
+
+[sd]quick jump, Lokaltog/vim-easymotion
+        ,,w 跳转
+        ,,fe 查找‘e’，快速跳转定位到某个位置
+
+[sd]code snippets,Sirver/ultisnips
+        at ~/.vim/bundle/vim-snippets/snippets
+
+[sd]quick comment out,scrooloose/nerdcommenter
+        ,cc 加注释
+        ,cu 解开注释
+
+[sd]add surround,tpope/vim-surround
+        cs"' [inside]
+        "Hello world!" -> 'Hello world!'
+        ds"
+        "Hello world!" -> Hello world!
+        ysiw"
+        Hello -> "Hello"
+
+[sd]buffer management [sd]
+        <Tab>  切换buffer
+        左右方向键  切换buffer
+        ,bn   切到后一个
+        ,bp   切到前一个
+        ,bd   关闭当前buffer

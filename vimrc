@@ -338,7 +338,7 @@ nnoremap gk k
 nnoremap j gj
 nnoremap gj j
 
-" F1 - F6 设置
+" F 区功能键设置
 
 " F1 废弃这个键,防止调出系统帮助
 " I can type :help on my own, thanks.  Protect your fat fingers from the evils of <F1>
@@ -356,14 +356,22 @@ function! HideNumber()
   endif
   set number?
 endfunc
-nnoremap <F2> :call HideNumber()<CR>
-" F3 显示可打印字符开关
-nnoremap <F3> :set list! list?<CR>
-" F4 换行开关
-nnoremap <F4> :set wrap! wrap?<CR>
 
+" F2 行号开关
+nnoremap <F2> :call HideNumber()<CR>
+" F3 项目结构开关
+nnoremap <F3> :NERDTreeToggle<CR>
+" F4 tagbar结构开关
+nmap <F4> :TagbarToggle<CR>
+" F5 快速运行
+map <F5> :QuickRun<CR>
 " F6 语法开关，关闭语法可以加快大文件的展示
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+" F9 显示打印字符开关
+nnoremap <F9> :set list! list?<CR>
+" F4 替换为 tagbarToggle，将换行开关替换为 F10
+nnoremap <F10> :set wrap! wrap?<CR>
+
 
 set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    paste mode, where you can paste mass data
@@ -442,8 +450,8 @@ nnoremap <silent> g* g*zz
 noremap <silent><leader>/ :nohls<CR>
 
 " switch # *
-nnoremap # *
-nnoremap * #
+"nnoremap # *
+"nnoremap * #
 
 " for # indent, python文件中输入新行时#号注释不切回行首
 autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
@@ -549,6 +557,9 @@ nnoremap <leader>q :q<CR>
 
 " Quickly save the current file
 nnoremap <leader>w :w<CR>
+
+" Quickly save and close
+nnoremap <leader>wq :wq<CR>
 
 " 交换 ' `, 使得可以快速使用'跳到marked位置
 nnoremap ' `
@@ -657,8 +668,9 @@ endif
 set background=dark
 set t_Co=256
 
-colorscheme solarized
-" colorscheme molokai
+" colorscheme solarized
+colorscheme molokai
+" colorscheme desert
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致
@@ -675,3 +687,52 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
+
+" modify by ffz
+" append a blank line below,and not go to the insert mode
+nnoremap al o<ESC>
+
+if exists('+colorcolumn')
+  set colorcolumn=80
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
+if !has('gui_running')
+    " fzf.vim {
+    let $LANG = 'en_US'
+    " Customize fzf colors to match your color scheme
+    let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+    nmap <Leader>? <plug>(fzf-maps-n)
+    xmap <Leader>? <plug>(fzf-maps-x)
+    omap <Leader>? <plug>(fzf-maps-o)
+
+    nnoremap <Leader>ag :Ag<CR>
+    nnoremap <Leader>bb :Buffers<CR>
+
+    nnoremap <Leader>b? :Buffers<CR>
+    nnoremap <Leader>w? :Windows<CR>
+    nnoremap <Leader>f? :Files<CR>
+
+    nnoremap <Leader>ff :Files ~<CR>
+    " }
+
+    " fzf-filemru {
+    nnoremap <Leader>pr :ProjectMru --tiebreak=end<cr>
+    " }
+else
+    nnoremap <Leader>? :nmap<CR>
+endif
+

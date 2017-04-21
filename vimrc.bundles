@@ -16,8 +16,8 @@ filetype off " required! turn off
 
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    " let g:bundle_groups=['python', 'javascript', 'golang', 'php', 'ruby', 'shell', 'markdown', 'html', 'css', 'less', 'coffeescript', 'tmux', 'json', 'beta']
-    let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta']
+    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'nginx', 'golang', 'ruby', 'less', 'php', 'coffeescript', 'shell']
+    let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json']
 endif
 
 " ----------------------------------------------------------------------------
@@ -28,6 +28,10 @@ endif
 call plug#begin('~/.vim/bundle')
 
 " 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
+
+"command-line fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 " syntastic
 if v:version < 800
@@ -764,7 +768,6 @@ endif
 
 " 标签导航
 " tagbar {{{
-    nmap <F9> :TagbarToggle<CR>
     let g:tagbar_autofocus = 1
     " let g:tagbar_autoshowtag = 1
     " let g:tagbar_show_visibility = 1
@@ -825,7 +828,6 @@ endif
 
     let g:quickrun_no_default_key_mappings = 1
     nmap <Leader>r <Plug>(quickrun)
-    map <F10> :QuickRun<CR>
 " }}}
 
 
