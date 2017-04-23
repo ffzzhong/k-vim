@@ -9,13 +9,30 @@ F10 换行开关
 空格 /开启查找
 Y   =y$   复制到行尾
 w!!  以sudo的权限保存
-kj   <Esc>，不用到角落去按esc了
+
+[buffer切换]
+,bb 列出所有缓冲区
+nnoremap [b :bprevious<cr>
+nnoremap ]b :bnext<cr>
+使用方向键切换buffer
+noremap <left> :bp<CR>
+noremap <right> :bn<CR>
+
+[tab切换]
+,ww 列出所有的 window，也可列出所有 tab
+ctrl + t ,new tab
+, + number, 切换到第 number 号 tab
+, + td, close tab
+
 
 ctrl + jkhl 进行上下左右窗口跳转,不需要ctrl+w+jkhl
 ctrl+n  相对行号绝对行号变换，默认用相对行号
+在命令模式下，ctrl + a 是到行首，ctrl + e 是到行尾
 
-
+,v 进入多行选择的 visual 模式
+,y 只在 visual 模式下，复制选中区域到系统剪切板中
 ,r 快速运行
+,zz ,折叠代码
 ,sa   全选(select all)
 ,gs  GitGutter插件，显示当前的修改 diff
 ,? 基于 ffz 的:nmap, 显示所有的键位映射
@@ -24,23 +41,70 @@ ctrl+n  相对行号绝对行号变换，默认用相对行号
 # 向上查找光标所在处单词
 * 向下查找光标所在出单词
 
-[sd] 匹配成对的标签，跳转
-        %
+[括号匹配]
+matchit
+%
 
-[sd]file find, kien/ctrlp.vim
-        ,p 快速查找文件
-        ctrl + j/k 上下移动
+[多光标同时操作]
+ctrl + m 开始选取光标所在处的单词
+ctrl + p 向上取消
+ctrl + x 跳过
+esc 退出选取
+选择完了之后，直接编辑
 
-[sd]quick jump, Lokaltog/vim-easymotion
-        ,,w 跳转
-        ,,fe 查找‘e’，快速跳转定位到某个位置
+[全局查找]
+ctralsf
+\ 快速在全局查找当前光标所在处单词
+找到后，在结果列表中：
+空格键打开
+p 预览
+t 在新的 tab 中打开
+q 退出
+ctrl + j，下一个
+ctrl + k，上一个
 
-[sd]code snippets,Sirver/ultisnips
-        at ~/.vim/bundle/vim-snippets/snippets
+[marks 管理]
+kshenoy/vim-signature
+使用 m + 一个字母，在光标所在出设置一个 mark
+使用 ' + 字母，跳转到设置的 mark
+m/ 列出当前 buffer 的所有 mark
+m- 删除当前行的所有mark
+m + space，删除当前 buffer 的所有 mark
+命令模式下，delmarks + 字母，删除 mark
+命令模式下，delmarks！ ，删除所有mark
 
-[sd]quick comment out,scrooloose/nerdcommenter
-        ,cc 加注释
-        ,cu 解开注释
+[错误提示]
+syntastic
+,es 显示所有错误
+,en 跳转到下一个错误
+,ep 跳转到上一个错误
+
+[代码跳转]
+YCM
+,jd goto definition else declaration
+,gd goto definition
+
+[快速文件操作]
+ kien/ctrlp.vim
+,p 快速查找文件
+,f 最近编辑过的文件
+,fu 快速显示本文件内的函数
+ctrl + j/k 上下移动
+
+[快速行间跳转和行内跳转]
+Lokaltog/vim-easymotion
+,,w 跳转
+,,h 行内向左跳转
+,,l 行内向右跳转
+,,j 行间向下跳转
+,,k 行间想上跳转
+,,fe 查找‘e’，快速跳转定位到某个位置
+
+[快速注释 ]
+scrooloose/nerdcommenter
+,cc 加注释
+,cu 解开注释
+
 
 [sd]add surround,tpope/vim-surround
         cs"' [inside]
@@ -50,9 +114,3 @@ ctrl+n  相对行号绝对行号变换，默认用相对行号
         ysiw"
         Hello -> "Hello"
 
-[sd]buffer management [sd]
-        <Tab>  切换buffer
-        左右方向键  切换buffer
-        ,bn   切到后一个
-        ,bp   切到前一个
-        ,bd   关闭当前buffer

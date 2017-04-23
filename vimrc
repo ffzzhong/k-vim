@@ -569,12 +569,16 @@ nnoremap ` '
 nnoremap U <C-r>
 
 " Quickly edit/reload the vimrc file
-" nmap <silent> <leader>ev :e $MYVIMRC<CR>
-" nmap <silent> <leader>sv :so $MYVIMRC<CR>
-" edit vimrc/zshrc and load vimrc bindings
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>ez :vsp ~/.zshrc<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+" edit vimrc
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+" edit vim bundle
+nmap <silent> <leader>eb :e $HOME/.vimrc.bundles<CR>
+" show vim short keys
+nmap <silent> <leader>ek :e $HOME/.vim/custom_shortcut_key<CR>
+
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nmap <silent> <leader>sb :so $HOME/.vimrc.bundles<CR>
+nmap <silent> <leader>sb :so $HOME/.vimrc.bundles<CR>
 
 "==========================================
 " FileType Settings  文件类型设置
@@ -691,6 +695,11 @@ highlight SpellLocal term=underline cterm=underline
 " modify by ffz
 " append a blank line below,and not go to the insert mode
 nnoremap al o<ESC>
+nnoremap <Leader>bd :w<CR>:bd<CR>
+let g:snips_author = 'lingfeng' 
+let g:snips_email = 'lingfeng@douban.com' 
+
+
 
 if exists('+colorcolumn')
   set colorcolumn=80
@@ -722,8 +731,7 @@ if !has('gui_running')
     nnoremap <Leader>ag :Ag<CR>
     nnoremap <Leader>bb :Buffers<CR>
 
-    nnoremap <Leader>b? :Buffers<CR>
-    nnoremap <Leader>w? :Windows<CR>
+    nnoremap <Leader>ww :Windows<CR>
     nnoremap <Leader>f? :Files<CR>
 
     nnoremap <Leader>ff :Files ~<CR>
