@@ -34,6 +34,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'ervandew/supertab'
+Plug 'Chiel92/vim-autoformat'
 
 " syntastic
 if v:version < 800
@@ -296,6 +297,18 @@ endif
 " Add plugins to &runtimepath
 call plug#end()
 
+" add by ffz
+" ################### 前端代码 format ###########
+" ,af 格式化代码，并在保存文件时自动格式化代码
+noremap <Leader>af :Autoformat<CR>
+au BufWrite * :Autoformat
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+let g:formatter_yapf_style = 'pep8'
+" let g:formatters_python = ['yapf']
+" let g:formatters_python = ['autopep8']
+" end
 
 " ################### 基础 ######################
 
@@ -317,6 +330,19 @@ if has_key(g:plugs, 'syntastic')
     let g:syntastic_python_flake8_args='--ignore=E501,E225,E124,E712,E116,E131'
 
     " javascript
+    " 最轻量
+    " let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes
+    " 中等
+    " error code: http://pep8.readthedocs.org/en/latest/intro.html#error-codes
+    " let g:syntastic_python_checkers=['pyflakes', 'pep8']
+    " let g:syntastic_python_pep8_args='--ignore=E501,E225,E124,E712,E741'
+    " 重量级, 但是足够强大, 定制完成后相当个性化
+    " pylint codes: http://pylint-messages.wikidot.com/all-codes
+    " let g:syntastic_python_checkers=['pyflakes', 'pylint'] " 使用pyflakes,速度比pylint快
+    " let g:syntastic_python_checkers=['pylint'] " 使用pyflakes,速度比pylint快
+    " let g:syntastic_python_pylint_args='--disable=C0111,R0903,C0301'
+
+    " if js
     " let g:syntastic_javascript_checkers = ['jsl', 'jshint']
     " let g:syntastic_html_checkers=['tidy', 'jshint']
     " npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard
@@ -426,6 +452,12 @@ endif
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " YouCompleteMe {{{
+" add by ffz
+    let g:ycm_confirm_extra_conf=0 "打开vim时不再询问是否加载ycm_extra_conf.py配置
+    let g:ycm_min_num_of_chars_for_completion=2 "开始补全的字符数
+    let g:ycm_cache_omnifunc=0 " 禁止缓存匹配项,每次都重新生成匹配项
+    let g:ycm_autoclose_preview_window_after_completion=1 "补全后自动关机预览窗口
+" end
     "youcompleteme  默认tab  s-tab 和自动补全冲突
     "let g:ycm_key_list_select_completion=['<c-n>']
     let g:ycm_key_list_select_completion = ['<C-n>','<Down>']
@@ -593,7 +625,7 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 " ################### 功能相关 ###################
 
 " ctrlp ctrlpfunky{{{
-    let g:ctrlp_map = '<leader>p'
+    let g:ctrlp_map = '<leader><leader>a'
     let g:ctrlp_cmd = 'CtrlP'
     map <leader>f :CtrlPMRU<CR>
     let g:ctrlp_custom_ignore = {
@@ -885,7 +917,9 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
     " pip install yapf
     " python code format
     " format all file
-    autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
+    " comment out by ffz
+        " autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
+    " end
     " format select block
     autocmd FileType python vnoremap <leader>y :!yapf<Cr>
 
