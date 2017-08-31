@@ -437,7 +437,9 @@ if has_key(g:plugs, 'ale')
             lopen
         endif
     endfunction
-    nnoremap <Leader>s :call ToggleErrors()<cr>
+    " nnoremap <Leader>e :call ToggleErrors()<cr>
+    " modify by ffz
+    nnoremap <Leader>es :call ToggleErrors()<cr>
 
     let g:ale_set_highlights = 1
     highlight clear ALEErrorSign
