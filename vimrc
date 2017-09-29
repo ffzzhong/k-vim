@@ -586,10 +586,17 @@ nmap <silent> <leader>sb :so $HOME/.vimrc.bundles<CR>
 
 " 具体编辑文件类型的一般设置，比如不要 tab 等
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+" autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+" modify by ffz
+autocmd FileType ruby,javascript,html,css,xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
+" end
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 autocmd BufRead,BufNewFile *.part set filetype=html
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+" modify by ffz, add config for ruby and js
+autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+autocmd Syntax javascript set syntax=jquery
+
 
 " disable showmatch when use > in php
 au BufWinEnter *.php set mps-=<:>
@@ -675,6 +682,9 @@ set t_Co=256
 " colorscheme solarized
 colorscheme molokai
 " colorscheme desert
+" add by ffz, for Ruby and Rails
+highlight NonText guibg=#060606
+highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致

@@ -17,7 +17,7 @@ filetype off " required! turn off
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
     " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'nginx', 'golang', 'ruby', 'less', 'php', 'coffeescript', 'shell']
-    let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json']
+    let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'ruby']
 endif
 
 " ----------------------------------------------------------------------------
@@ -298,7 +298,6 @@ endif
 call plug#end()
 
 " add by ffz
-" ################### 前端代码 format ###########
 " ,af 格式化代码，并在保存文件时自动格式化代码
 noremap <Leader>af :Autoformat<CR>
 au BufWrite * :Autoformat
@@ -306,7 +305,8 @@ let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 let g:formatter_yapf_style = 'pep8'
-" let g:formatters_python = ['yapf']
+let g:formatters_python = ['yapf']
+let g:formatters_ruby = ['rubocop']
 " let g:formatters_python = ['autopep8']
 " end
 
@@ -920,10 +920,10 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
     " python code format
     " format all file
     " comment out by ffz
-        " autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
-    " end
+    " autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
     " format select block
-    autocmd FileType python vnoremap <leader>y :!yapf<Cr>
+    " autocmd FileType python vnoremap <leader>y :!yapf<Cr>
+    " end
 
     " Plug 'posva/vim-vue'
 
