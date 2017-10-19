@@ -35,7 +35,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'ervandew/supertab'
 Plug 'Chiel92/vim-autoformat'
-Plug 'scrooloose/syntastic'
 
 " syntastic
 if v:version < 800
