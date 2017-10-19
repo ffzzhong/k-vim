@@ -17,7 +17,7 @@ filetype off " required! turn off
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
     " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'nginx', 'golang', 'ruby', 'less', 'php', 'coffeescript', 'shell']
-    let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'ruby']
+    let g:bundle_groups=['python', 'javascript', 'html', 'css', 'json', 'ruby']
 endif
 
 " ----------------------------------------------------------------------------
@@ -35,6 +35,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'ervandew/supertab'
 Plug 'Chiel92/vim-autoformat'
+Plug 'scrooloose/syntastic'
 
 " syntastic
 if v:version < 800
@@ -234,7 +235,7 @@ if count(g:bundle_groups, 'javascript')
     " for javascript 自动补全, 配合YCM, 需要安装全局环境的（非nvm中) node.js&npm
     " 安装完成后还需要在 bundle/tern_for_vim 下执行 npm install 安装依赖 `cd ~/.vim/bundle/tern_for_vim && npm install`
     " see https://github.com/marijnh/tern_for_vim
-    " Plug 'marijnh/tern_for_vim', {'do': 'npm install'}
+    Plug 'marijnh/tern_for_vim', {'do': 'npm install'}
 endif
 
 
@@ -459,6 +460,7 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
     let g:ycm_min_num_of_chars_for_completion=2 "开始补全的字符数
     let g:ycm_cache_omnifunc=0 " 禁止缓存匹配项,每次都重新生成匹配项
     let g:ycm_autoclose_preview_window_after_completion=1 "补全后自动关机预览窗口
+    let g:ycm_python_binary_path = 'python'
 " end
     "youcompleteme  默认tab  s-tab 和自动补全冲突
     "let g:ycm_key_list_select_completion=['<c-n>']
@@ -553,6 +555,10 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " nerdcommenter {{{
     let g:NERDSpaceDelims=1
+    let g:NERDCompactSexyComs = 1
+    let g:NERDDefaultAlign = 'left'
+    let g:NERDCommentEmptyLines = 1
+    let g:NERDTrimTrailingWhitespace = 1
     let g:NERDAltDelims_python = 1
 " }}}
 
@@ -781,6 +787,9 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
     " s/v 分屏打开文件
     let g:NERDTreeMapOpenSplit = 's'
     let g:NERDTreeMapOpenVSplit = 'v'
+    "modify by ffz
+    " let NERDTREEWinSize=40
+    "end
 
 
     " nerdtreetabs

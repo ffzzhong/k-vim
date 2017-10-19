@@ -586,9 +586,9 @@ nmap <silent> <leader>sb :so $HOME/.vimrc.bundles<CR>
 
 " 具体编辑文件类型的一般设置，比如不要 tab 等
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-" autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 " modify by ffz
-autocmd FileType ruby,javascript,html,css,xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
+" autocmd FileType ruby,javascript,html,css,xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
 " end
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 autocmd BufRead,BufNewFile *.part set filetype=html
@@ -623,9 +623,10 @@ function! AutoSetFileHead()
 
     "如果文件类型为python
     if &filetype == 'python'
-        " call setline(1, "\#!/usr/bin/env python")
+        call setline(1, "\#!/usr/bin/env python")
         " call append(1, "\# encoding: utf-8")
-        call setline(1, "\# -*- coding: utf-8 -*-")
+        call append(1, "\# -*- coding: utf-8 -*-")
+        " call setline(1, "\# -*- coding: utf-8 -*-")
     endif
 
     normal G
@@ -707,7 +708,6 @@ highlight SpellLocal term=underline cterm=underline
 nnoremap al o<ESC>
 nnoremap <Leader>bd :w<CR>:bd<CR>
 let g:snips_author = 'lingfeng' 
-let g:snips_email = 'lingfeng@douban.com' 
 
 
 
