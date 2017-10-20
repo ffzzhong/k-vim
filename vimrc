@@ -593,9 +593,8 @@ autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtab
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 autocmd BufRead,BufNewFile *.part set filetype=html
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
-" modify by ffz, add config for ruby and js
+" modify by ffz, add config for ruby
 autocmd BufRead,BufNewFile Appraisals set filetype=ruby
-autocmd Syntax javascript set syntax=jquery
 
 
 " disable showmatch when use > in php
