@@ -340,9 +340,6 @@ nnoremap gj j
 
 " F 区功能键设置
 
-" F1 废弃这个键,防止调出系统帮助
-" I can type :help on my own, thanks.  Protect your fat fingers from the evils of <F1>
-noremap <F1> <Esc>"
 
 " F2 行号开关，用于鼠标复制代码用
 " 为方便复制，用<F2>开启/关闭行号显示:
@@ -357,12 +354,12 @@ function! HideNumber()
   set number?
 endfunc
 
+" F1 tagbarToggle
+nnoremap <F1> :TagbarToggle<CR>
 " F2 行号开关
 nnoremap <F2> :call HideNumber()<CR>
 " F3 项目结构开关
 nnoremap <F3> :NERDTreeToggle<CR>
-" F4 tagbar结构开关
-nmap <F4> :TagbarToggle<CR>
 " F5 快速运行
 map <F5> :QuickRun<CR>
 " F6 语法开关，关闭语法可以加快大文件的展示
@@ -373,9 +370,9 @@ nnoremap <F9> :set list! list?<CR>
 nnoremap <F10> :set wrap! wrap?<CR>
 
 
-set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
-                                "    paste mode, where you can paste mass data
-                                "    that won't be autoindented
+" set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
+"                                 "    paste mode, where you can paste mass data
+"                                 "    that won't be autoindented
 
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
@@ -613,7 +610,7 @@ autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,pe
 
 
 " 定义函数AutoSetFileHead，自动插入文件头
-autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
+autocmd BufNewFile *.sh,*.rb,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
     "如果文件类型为.sh文件
     if &filetype == 'sh'
@@ -626,6 +623,12 @@ function! AutoSetFileHead()
         " call append(1, "\# encoding: utf-8")
         call append(1, "\# -*- coding: utf-8 -*-")
         " call setline(1, "\# -*- coding: utf-8 -*-")
+    endif
+
+    " 如果文件类型为ruby
+    if &filetype == 'ruby'
+        call setline(1, "\#!/usr/bin/ruby")
+        call append(1, "\# -*- coding: utf-8 -*-")
     endif
 
     normal G
@@ -706,7 +709,7 @@ highlight SpellLocal term=underline cterm=underline
 " append a blank line below,and not go to the insert mode
 nnoremap al o<ESC>
 nnoremap <Leader>bd :w<CR>:bd<CR>
-let g:snips_author = 'lingfeng' 
+let g:snips_author = 'fenfenzhong92' 
 
 
 
