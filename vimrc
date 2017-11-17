@@ -627,7 +627,7 @@ function! AutoSetFileHead()
 
     " 如果文件类型为ruby
     if &filetype == 'ruby'
-        call setline(1, "\#!/usr/bin/ruby")
+        call setline(1, "\#!/usr/local/bin/ruby -w")
         call append(1, "\# -*- coding: utf-8 -*-")
     endif
 
