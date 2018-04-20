@@ -479,7 +479,7 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
     "let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
 
     " 跳转到定义处, 分屏打开
-    let g:ycm_goto_buffer_command = 'horizontal-split'
+    let g:ycm_goto_buffer_command = 'vertical-split'
     let g:ycm_register_as_syntastic_checker = 0
     " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
     nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -556,8 +556,8 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
     let g:NERDSpaceDelims=1
     let g:NERDCompactSexyComs = 1
     let g:NERDDefaultAlign = 'left'
-    let g:NERDCommentEmptyLines = 1
-    let g:NERDTrimTrailingWhitespace = 1
+    " let g:NERDCommentEmptyLines = 1
+    " let g:NERDTrimTrailingWhitespace = 1
     let g:NERDAltDelims_python = 1
 " }}}
 
@@ -566,8 +566,8 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 " }}}
 
 " easyalign {{{
-    vmap <Leader>a <Plug>(EasyAlign)
-    nmap <Leader>a <Plug>(EasyAlign)
+    vmap <Leader>ga <Plug>(EasyAlign)
+    nmap <Leader>ga <Plug>(EasyAlign)
     if !exists('g:easy_align_delimiters')
     let g:easy_align_delimiters = {}
     endif
@@ -766,7 +766,7 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
     let g:solarized_termtrans=1
     let g:solarized_contrast="normal"
     let g:solarized_visibility="normal"
-    " let g:solarized_termcolors=256
+    let g:solarized_termcolors=16
 " }}}
 
 " molokai {{{
@@ -786,6 +786,11 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
     " s/v 分屏打开文件
     let g:NERDTreeMapOpenSplit = 's'
     let g:NERDTreeMapOpenVSplit = 'v'
+    "modify by ffz"
+    "prevents NERDTree from hiding when first selecting a file."
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
     "modify by ffz
     " let NERDTREEWinSize=40
     "end
@@ -793,6 +798,8 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 
     " nerdtreetabs
     map <Leader>n <plug>NERDTreeTabsToggle<CR>
+    " Anchor file in tree "
+    nmap <Leader>a :NERDTreeFind<CR>
     " 关闭同步
     " let g:nerdtree_tabs_synchronize_view=0
     " let g:nerdtree_tabs_synchronize_focus=0
