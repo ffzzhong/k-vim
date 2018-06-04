@@ -36,6 +36,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'ervandew/supertab'
 Plug 'Chiel92/vim-autoformat'
 
+" add by ffz
+" integrate wish dash.app for better API searching
+" Plug 'rizzatti/dash.vim'
+
 " syntastic
 if v:version < 800
     Plug 'scrooloose/syntastic'
