@@ -16,8 +16,8 @@ filetype off " required! turn off
 
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'nginx', 'golang', 'ruby', 'less', 'php', 'coffeescript', 'shell']
-    let g:bundle_groups=['python', 'javascript', 'html', 'css', 'beta', 'json', 'ruby']
+    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'nginx', 'golang', 'ruby', 'less', 'php', 'coffeescript', 'shell', 'scala']
+    let g:bundle_groups=['python', 'javascript', 'html', 'css', 'golang', 'json', 'ruby', 'scala']
 endif
 
 " ----------------------------------------------------------------------------
@@ -35,6 +35,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'ervandew/supertab'
 Plug 'Chiel92/vim-autoformat'
+
+" add by ffz
+" color schemes
+Plug 'drewtempelmeyer/palenight.vim'
 
 " add by ffz
 " integrate wish dash.app for better API searching
@@ -223,6 +227,41 @@ if count(g:bundle_groups, 'ruby')
 
     " 有bug, 和当前有冲突, 尚未解决, 不要打开 => TODO: solve this problem
     " Plug 'tpope/vim-endwise'
+endif
+
+if count(g:bundle_groups, 'scala')
+    Plug 'derekwyatt/vim-scala'
+    " if has('nvim')
+    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    " else
+    " Plug 'Shougo/deoplete.nvim'
+    " Plug 'roxma/nvim-yarp'
+    " Plug 'roxma/vim-hug-neovim-rpc'
+    " endif
+    " let g:deoplete#enable_at_startup = 1
+    " " FZF / Ctrlp for file navigation
+    " if executable('fzf')
+    " Plug '/usr/local/opt/fzf'
+    " Plug 'junegunn/fzf.vim'
+    " else
+    " Plug 'ctrlpvim/ctrlp.vim'
+    " endif
+
+    " " Ripgrep for file indexing, sort of faster, but not really, but also why not use ripgrep for everything
+    " if executable('rg')
+    " let $FZF_DEFAULT_COMMAND = 'rg --files --no-messages "" .'
+    " endif
+
+    " " Use FZF for files and tags if available, otherwise fall back onto CtrlP
+    " " <leader>j will search for tag using word under cursor
+    " let g:fzf_command_prefix = 'Fzf'
+    " if executable('fzf')
+    " nnoremap <leader>v :FzfFiles<cr>
+    " nnoremap <leader>u :FzfTags<cr>
+    " nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
+    " else
+    " nnoremap <leader>v :CtrlP<Space><cr>
+    " endif
 endif
 
 if count(g:bundle_groups, 'javascript')
@@ -416,7 +455,7 @@ if has_key(g:plugs, 'ale')
     \}
 
     " E501 -> 120 chars
-    let g:ale_python_flake8_args="--ignore=E114,E116,E131 --max-line-length=120"
+    let g:ale_python_flake8_options="--ignore=E114,E116,E131 --max-line-length=120"
     " --ignore=E225,E124,E712,E116
 
     let g:ale_sign_error = '>>'
@@ -506,6 +545,19 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
         \ 'tagbar' : 1,
         \ 'gitcommit' : 1,
         \}
+    let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.'],
+  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+  \             're!\[.*\]\s'],
+  \   'ocaml' : ['.', '#'],
+  \   'cpp,cuda,objcpp' : ['->', '.', '::'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'ruby' : ['.', '::'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
 " }}}
 
 

@@ -682,9 +682,11 @@ endif
 set background=dark
 set t_Co=256
 
-" colorscheme solarized
-colorscheme molokai
+" add by ffz
+colorscheme palenight
 " colorscheme desert
+" colorscheme solarized
+" colorscheme molokai
 " add by ffz, for Ruby and Rails
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
