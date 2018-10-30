@@ -355,11 +355,13 @@ function! HideNumber()
 endfunc
 
 " F1 tagbarToggle
-nnoremap <F1> :TagbarToggle<CR>
+" nnoremap <F1> :TagbarToggle<CR>
 " F2 行号开关
 nnoremap <F2> :call HideNumber()<CR>
 " F3 项目结构开关
 nnoremap <F3> :NERDTreeToggle<CR>
+" F4 tagbarToggle
+nnoremap <F4> :TagbarToggle<CR>
 " F5 快速运行
 map <F5> :QuickRun<CR>
 " F6 语法开关，关闭语法可以加快大文件的展示
@@ -683,9 +685,21 @@ set background=dark
 set t_Co=256
 
 " add by ffz
-colorscheme palenight
+" solarized
+colorscheme solarized
+" end solarized
+"
+" palenight
+" palenight should choose iterm color as darcula
+" colorscheme palenight
+" end palenight
+"
+" onehalflight
+" colorschem onehalfdark
+" let g:airline_theme='onehalfdark'
+" end onehalflight
+"
 " colorscheme desert
-" colorscheme solarized
 " colorscheme molokai
 " add by ffz, for Ruby and Rails
 highlight NonText guibg=#060606
@@ -746,9 +760,9 @@ if !has('gui_running')
     nnoremap <Leader>bb :Buffers<CR>
 
     nnoremap <Leader>ww :Windows<CR>
-    nnoremap <Leader>f? :Files<CR>
+    nnoremap <Leader>f :Files<CR>
 
-    nnoremap <Leader>ff :Files ~<CR>
+    nnoremap <Leader>f? :Files ~<CR>
     " }
 
     " fzf-filemru {

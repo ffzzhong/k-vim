@@ -39,10 +39,16 @@ Plug 'Chiel92/vim-autoformat'
 " add by ffz
 " color schemes
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'morhetz/gruvbox'
 
 " add by ffz
 " integrate wish dash.app for better API searching
 " Plug 'rizzatti/dash.vim'
+
+" add by ffz
+" show indent
+" Plug 'Yggdroot/indentLine'
 
 " syntastic
 if v:version < 800
@@ -61,6 +67,16 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " 迄今为止用到的最好的自动VIM自动补全插件
 " 重启 :YcmRestartServer
 Plug 'Valloric/YouCompleteMe'
+" add by ffz
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+" let g:deoplete#enable_at_startup = 1
+" end
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
@@ -499,7 +515,7 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 " YouCompleteMe {{{
 " add by ffz
     let g:ycm_confirm_extra_conf=0 "打开vim时不再询问是否加载ycm_extra_conf.py配置
-    let g:ycm_min_num_of_chars_for_completion=2 "开始补全的字符数
+    let g:ycm_min_num_of_chars_for_completion=1 "开始补全的字符数
     let g:ycm_cache_omnifunc=0 " 禁止缓存匹配项,每次都重新生成匹配项
     let g:ycm_autoclose_preview_window_after_completion=1 "补全后自动关机预览窗口
     let g:ycm_python_binary_path = 'python'
@@ -690,7 +706,7 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 " ctrlp ctrlpfunky{{{
     let g:ctrlp_map = '<leader><leader>a'
     let g:ctrlp_cmd = 'CtrlP'
-    map <leader>f :CtrlPMRU<CR>
+    map <leader>ff :CtrlPMRU<CR>
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
         \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
