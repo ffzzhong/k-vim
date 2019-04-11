@@ -585,21 +585,19 @@ nmap <silent> <leader>sb :so $HOME/.vimrc.bundles<CR>
 
 " 具体编辑文件类型的一般设置，比如不要 tab 等
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd FileType ruby,javascript,html,css,xml,json set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 " modify by ffz
 " autocmd FileType ruby,javascript,html,css,xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
 " end
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 autocmd BufRead,BufNewFile *.part set filetype=html
+autocmd BufRead,BufNewFile *.template set filetype=template
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 " modify by ffz, add config for ruby
 autocmd BufRead,BufNewFile Appraisals set filetype=ruby
 
-
 " disable showmatch when use > in php
 au BufWinEnter *.php set mps-=<:>
-
-
 
 " 保存python文件时删除多余空格
 fun! <SID>StripTrailingWhitespaces()
@@ -686,25 +684,33 @@ set t_Co=256
 
 " add by ffz
 " solarized
-colorscheme solarized
+" colorscheme solarized
 " end solarized
 "
 " palenight
-" palenight should choose iterm color as darcula
 " colorscheme palenight
 " end palenight
 "
-" onehalflight
-" colorschem onehalfdark
+" onehalfdark
+" colorscheme onehalfdark
 " let g:airline_theme='onehalfdark'
-" end onehalflight
+" end onehalf
+"
+" vim-hybrid-material
+" 最好和 iterm material-design-colors 搭配使用
+let g:enable_bold_font = 1
+let g:hybrid_transparent_background = 1
+let g:airline_theme = "hybrid"
+colorscheme hybrid_material
+" colorscheme hybrid_reverse
+" end vim-hybrid-material
+"
+" nord
+" colorscheme nord
+" end nord
 "
 " colorscheme desert
 " colorscheme molokai
-" add by ffz, for Ruby and Rails
-highlight NonText guibg=#060606
-highlight Folded  guibg=#0A0A0A guifg=#9090D0
-
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
@@ -725,7 +731,7 @@ highlight SpellLocal term=underline cterm=underline
 " append a blank line below,and not go to the insert mode
 nnoremap al o<ESC>
 nnoremap <Leader>bd :w<CR>:bd<CR>
-let g:snips_author = 'fenfenzhong92' 
+let g:snips_author = 'fenfenzhong92'
 
 
 
