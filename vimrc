@@ -567,18 +567,6 @@ nnoremap ` '
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
 
-" Quickly edit/reload the vimrc file
-" edit vimrc
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-" edit vim bundle
-nmap <silent> <leader>eb :e $HOME/.vimrc.bundles<CR>
-" show vim short keys
-nmap <silent> <leader>ek :e $HOME/.vim/custom_shortcut_key<CR>
-
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-nmap <silent> <leader>sb :so $HOME/.vimrc.bundles<CR>
-nmap <silent> <leader>sb :so $HOME/.vimrc.bundles<CR>
-
 "==========================================
 " FileType Settings  文件类型设置
 "==========================================
@@ -673,24 +661,26 @@ if has("gui_running")
     set showtabline=1
     set linespace=2
     set noimd
-    set t_Co=256
 endif
 
 
 
 " theme主题
-set background=dark
-set t_Co=256
+" enable true color
+set termguicolors
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " add by ffz
-" solarized
-" colorscheme solarized
-" end solarized
 "
 " palenight
 " colorscheme palenight
 " end palenight
 "
+" gruvbox, true color
+" colorscheme gruvbox
+" let g:airline_theme='gruvbox'
+" end gruvbox
+
 " onehalfdark
 " colorscheme onehalfdark
 " let g:airline_theme='onehalfdark'
@@ -704,10 +694,6 @@ let g:airline_theme = "hybrid"
 colorscheme hybrid_material
 " colorscheme hybrid_reverse
 " end vim-hybrid-material
-"
-" nord
-" colorscheme nord
-" end nord
 "
 " colorscheme desert
 " colorscheme molokai

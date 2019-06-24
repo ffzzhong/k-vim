@@ -42,8 +42,8 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'jdkanani/vim-material-theme'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'morhetz/gruvbox'
-Plug 'arcticicestudio/nord-vim'
 Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'tomasr/molokai'
 
 
 " add by ffz
@@ -154,12 +154,8 @@ Plug 'thinca/vim-quickrun'
 " git
 " fugitive
 Plug 'tpope/vim-fugitive'
-" gitgutter
-Plug 'airblade/vim-gitgutter'
-
-" gundo
-" edit history, 可以查看回到某个历史状态
-Plug 'sjl/gundo.vim'
+" signify 用来显示文件中的修改状态
+Plug 'mhinz/vim-signify'
 
 " view
 " airline
@@ -169,12 +165,6 @@ Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
 Plug 'kien/rainbow_parentheses.vim'
-" 主题 solarized
-" solarized
-Plug 'altercation/vim-colors-solarized'
-" molokai
-" 主题 molokai
-Plug 'tomasr/molokai'
 
 
 " nav
@@ -277,37 +267,66 @@ endif
 
 if count(g:bundle_groups, 'scala')
     Plug 'derekwyatt/vim-scala'
-    " if has('nvim')
-    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    " else
-    " Plug 'Shougo/deoplete.nvim'
-    " Plug 'roxma/nvim-yarp'
-    " Plug 'roxma/vim-hug-neovim-rpc'
-    " endif
-    " let g:deoplete#enable_at_startup = 1
-    " " FZF / Ctrlp for file navigation
-    " if executable('fzf')
-    " Plug '/usr/local/opt/fzf'
-    " Plug 'junegunn/fzf.vim'
-    " else
-    " Plug 'ctrlpvim/ctrlp.vim'
-    " endif
+    " add by ffz, coc.nvim for scala, but it's not a maturel project right now(2019.06.20)
+    " Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+    " au BufRead,BufNewFile *.sbt set filetype=scala
 
-    " " Ripgrep for file indexing, sort of faster, but not really, but also why not use ripgrep for everything
-    " if executable('rg')
-    " let $FZF_DEFAULT_COMMAND = 'rg --files --no-messages "" .'
-    " endif
+    " " Configuration for coc.nvim
+    " " Smaller updatetime for CursorHold & CursorHoldI
+    " set updatetime=300
+    " " don't give |ins-completion-menu| messages.
+    " set shortmess+=c
+    " " always show signcolumns
+    " set signcolumn=yes
+    " " Some server have issues with backup files, see #649
+    " set nobackup
+    " set nowritebackup
+    " " Better display for messages
+    " set cmdheight=2
+    " " Use <c-space> for trigger completion.
+    " inoremap <silent><expr> <c-space> coc#refresh()
+    " " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+    " " Coc only does snippet and additional edit on confirm.
+    " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    " " Use `[c` and `]c` for navigate diagnostics
+    " nmap <silent> [c <Plug>(coc-diagnostic-prev)
+    " nmap <silent> ]c <Plug>(coc-diagnostic-next)
+    " " Remap keys for gotos
+    " nmap <silent> gd <Plug>(coc-definition)
+    " nmap <silent> gy <Plug>(coc-type-definition)
+    " nmap <silent> gi <Plug>(coc-implementation)
+    " nmap <silent> gr <Plug>(coc-references)
+    " " Remap for do codeAction of current line
+    " nmap <leader>ac <Plug>(coc-codeaction)
+    " " Remap for do action format
+    " " nnoremap <silent> F :call CocAction('format')<CR>
+    " " Use K for show documentation in preview window
+    " nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-    " " Use FZF for files and tags if available, otherwise fall back onto CtrlP
-    " " <leader>j will search for tag using word under cursor
-    " let g:fzf_command_prefix = 'Fzf'
-    " if executable('fzf')
-    " nnoremap <leader>v :FzfFiles<cr>
-    " nnoremap <leader>u :FzfTags<cr>
-    " nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
+    " function! s:show_documentation()
+    " if &filetype == 'vim'
+    "     execute 'h '.expand('<cword>')
     " else
-    " nnoremap <leader>v :CtrlP<Space><cr>
+    "     call CocAction('doHover')
     " endif
+    " endfunction
+
+    " " Highlight symbol under cursor on CursorHold
+    " autocmd CursorHold * silent call CocActionAsync('highlight')
+    " " Remap for rename current word
+    " nmap <leader>rn <Plug>(coc-rename)
+    " " Show all diagnostics
+    " nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+    " " Find symbol of current document
+    " nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+    " " Search workspace symbols
+    " nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+    " " Do default action for next item.
+    " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+    " " Do default action for previous item.
+    " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+    " " Resume latest coc list
+    " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 endif
 
 if count(g:bundle_groups, 'javascript')
@@ -575,7 +594,7 @@ let g:ycm_goto_buffer_command = 'vertical-split'
 let g:ycm_register_as_syntastic_checker = 0
 " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+" nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 
 " 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
 " old version
@@ -794,7 +813,7 @@ let g:ctrlsf_mapping = {
 
 " fugitive {{{
 " :Gdiff  :Gstatus :Gvsplit
-nnoremap <leader>ge :Gdiff<CR>
+nnoremap <leader>gd :Gdiff<CR>
 " not ready to open
 " <leader>gb maps to :Gblame<CR>
 " <leader>gs maps to :Gstatus<CR>
@@ -804,33 +823,14 @@ nnoremap <leader>ge :Gdiff<CR>
 " <leader>gp maps to :Git push<CR>
 " }}}
 
-" gitgutter {{{
-" 同git diff,实时展示文件中修改的行
-" 只是不喜欢除了行号多一列, 默认关闭,gs时打开
-let g:gitgutter_map_keys = 0
-let g:gitgutter_enabled = 0
-let g:gitgutter_highlight_lines = 1
-nnoremap <leader>gs :GitGutterToggle<CR>
-" }}}
-
-" gundo {{{
-noremap <leader>h :GundoToggle<CR>
-" }}}
-
 " ################### 显示增强 ###################
 
 " airline {{{
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-let g:airline_left_sep = '▶'
-let g:airline_left_alt_sep = '❯'
-let g:airline_right_sep = '◀'
-let g:airline_right_alt_sep = '❮'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-" 是否打开tabline
-" let g:airline#extensions#tabline#enabled = 1
 " }}}
 
 
