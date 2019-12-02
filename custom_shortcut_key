@@ -73,6 +73,7 @@ m- 删除当前行的所有mark
 m + space，删除当前 buffer 的所有 mark
 命令模式下，delmarks + 字母，删除 mark
 命令模式下，delmarks！ ，删除所有mark
+" + mark, 跳转到 mark
 
 [错误提示]
 syntastic

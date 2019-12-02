@@ -587,7 +587,7 @@ autocmd BufRead,BufNewFile Appraisals set filetype=ruby
 " disable showmatch when use > in php
 au BufWinEnter *.php set mps-=<:>
 
-" 保存python文件时删除多余空格
+" 保存文件时删除多余空格
 fun! <SID>StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
@@ -666,34 +666,36 @@ endif
 
 
 " theme主题
+" add by ffz
 " enable true color
 set termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " add by ffz
-"
-" palenight
-" colorscheme palenight
-" end palenight
-"
 " gruvbox, true color
 " colorscheme gruvbox
 " let g:airline_theme='gruvbox'
-" end gruvbox
 
-" onehalfdark
-" colorscheme onehalfdark
-" let g:airline_theme='onehalfdark'
-" end onehalf
+" onedark
+" let g:onedark_hide_endofbuffer=1
+" let g:onedark_terminal_italics=1
+" let g:airline_theme='onedark'
+" colorscheme onedark
+"
+" one
+set background=dark
+let g:one_allow_italics=1
+let g:airline_theme='one'
+colorscheme one
 "
 " vim-hybrid-material
-" 最好和 iterm material-design-colors 搭配使用
-let g:enable_bold_font = 1
-let g:hybrid_transparent_background = 1
-let g:airline_theme = "hybrid"
-colorscheme hybrid_material
+" 虽然和 iterm material-design-colors 是一体，但是和 iterm one half 更好看
+" let g:enable_bold_font = 1
+" let g:enable_italic_font = 1
+" let g:hybrid_transparent_background = 1
+" let g:airline_theme = "hybrid"
+" colorscheme hybrid_material
 " colorscheme hybrid_reverse
-" end vim-hybrid-material
 "
 " colorscheme desert
 " colorscheme molokai
