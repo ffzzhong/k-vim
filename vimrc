@@ -540,6 +540,8 @@ cmap w!! w !sudo tee >/dev/null %
 
 " kj 替换 Esc
 inoremap kj <Esc>
+inoremap <C-[> <Esc>
+
 
 " 滚动Speed up scrolling of the viewport slightly
 nnoremap <C-e> 2<C-e>
@@ -594,7 +596,7 @@ fun! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,rb autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,yaml,perl,rb autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 
 " 定义函数AutoSetFileHead，自动插入文件头
@@ -724,7 +726,7 @@ let g:snips_author = 'fenfenzhong92'
 
 
 if exists('+colorcolumn')
-  set colorcolumn=80
+  set colorcolumn=88
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif

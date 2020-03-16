@@ -410,14 +410,15 @@ call plug#end()
 noremap <Leader>af :Autoformat<CR>
 
 let blacklist = ['html.mustache', 'template', 'md', 'markdown.mkd']
-" au BufWrite * if index(blacklist, &ft) < 0 | Autoformat
+au BufWrite * if index(blacklist, &ft) < 0 | Autoformat
 " au BufWrite * :Autoformat
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
-" let g:autoformat_remove_trailing_spaces = 0
-let g:formatter_black_style = 'pycodestyle'
+let g:autoformat_remove_trailing_spaces = 0
+" let g:formatter_yapf_style = 'google'
+" let g:formatters_python = ['yapf']
 let g:formatters_python = ['black']
-let g:formatters_ruby = ['rubocop']
+" let g:formatters_ruby = ['rubocop']
 " let g:formatters_python = ['autopep8']
 " end
 
@@ -592,7 +593,8 @@ let g:ycm_key_list_stop_completion = ['<CR>']
 let g:ycm_goto_buffer_command = 'vertical-split'
 let g:ycm_register_as_syntastic_checker = 0
 " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
 " nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 
 " add by ffz
