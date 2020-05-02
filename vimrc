@@ -75,27 +75,12 @@ set nobackup
 " 关闭交换文件
 set noswapfile
 
-
-" TODO: remove this, use gundo
-" create undo file
-" if has('persistent_undo')
-  " " How many undos
-  " set undolevels=1000
-  " " number of lines to save for undo
-  " set undoreload=10000
-  " " So is persistent undo ...
-  " "set undofile
-  " set noundofile
-  " " set undodir=/tmp/vimundo/
-" endif
-
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 
 " 突出显示当前列
 set cursorcolumn
 " 突出显示当前行
 set cursorline
-
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
 " 好处：误删什么的，如果以前屏幕打开，可以找回
@@ -145,8 +130,6 @@ set showmode
 
 " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
 set scrolloff=7
-
-" set winwidth=79
 
 " 命令行（在状态行下）的高度，默认为1，这里是2
 set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
@@ -338,9 +321,6 @@ nnoremap gk k
 nnoremap j gj
 nnoremap gj j
 
-" F 区功能键设置
-
-
 " F2 行号开关，用于鼠标复制代码用
 " 为方便复制，用<F2>开启/关闭行号显示:
 function! HideNumber()
@@ -354,6 +334,7 @@ function! HideNumber()
   set number?
 endfunc
 
+" F 区功能键设置
 " F1 tagbarToggle
 " nnoremap <F1> :TagbarToggle<CR>
 " F2 行号开关
@@ -370,11 +351,6 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 nnoremap <F9> :set list! list?<CR>
 " F4 替换为 tagbarToggle，将换行开关替换为 F10
 nnoremap <F10> :set wrap! wrap?<CR>
-
-
-" set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
-"                                 "    paste mode, where you can paste mass data
-"                                 "    that won't be autoindented
 
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
@@ -575,7 +551,7 @@ nnoremap U <C-r>
 
 " 具体编辑文件类型的一般设置，比如不要 tab 等
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-autocmd FileType ruby,javascript,html,css,xml,json set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd FileType ruby,javascript,html,css,xml,json,yaml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 " modify by ffz
 " autocmd FileType ruby,javascript,html,css,xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
 " end
@@ -723,46 +699,72 @@ nnoremap al o<ESC>
 nnoremap <Leader>bd :w<CR>:bd<CR>
 let g:snips_author = 'fenfenzhong92'
 
-
-
+" ruler
+" 超过定义的长度则显示异常
 if exists('+colorcolumn')
   set colorcolumn=88
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
+" fzf
 if !has('gui_running')
     " fzf.vim {
     let $LANG = 'en_US'
-    " Customize fzf colors to match your color scheme
-    let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+
+    " Empty value to disable preview window altogether
+    let g:fzf_preview_window = ''
+    " Always enable preview window on the right with 40% width
+    " let g:fzf_preview_window = 'right:40%'
+
+    " 让输入上方，搜索列表在下方
+    let $FZF_DEFAULT_OPTS = '--layout=reverse'
+
+    " 打开 fzf 的方式选择 floating window
+    let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
+
+    function! OpenFloatingWin()
+    let height = &lines - 3
+    let width = float2nr(&columns - (&columns * 2 / 10))
+    let col = float2nr((&columns - width) / 2)
+
+    " 设置浮动窗口打开的位置，大小等。
+    " 这里的大小配置可能不是那么的 flexible 有继续改进的空间
+    let opts = {
+            \ 'relative': 'editor',
+            \ 'row': height * 0.3,
+            \ 'col': col + 30,
+            \ 'width': width * 2 / 3,
+            \ 'height': height / 2
+            \ }
+
+    let buf = nvim_create_buf(v:false, v:true)
+    let win = nvim_open_win(buf, v:true, opts)
+
+    " 设置浮动窗口高亮
+    call setwinvar(win, '&winhl', 'Normal:Pmenu')
+
+    setlocal
+            \ buftype=nofile
+            \ nobuflisted
+            \ bufhidden=hide
+            \ nonumber
+            \ norelativenumber
+            \ signcolumn=no
+    endfunction
+
     nmap <Leader>? <plug>(fzf-maps-n)
     xmap <Leader>? <plug>(fzf-maps-x)
     omap <Leader>? <plug>(fzf-maps-o)
 
     nnoremap <Leader>ag :Ag<CR>
-    nnoremap <Leader>bb :Buffers<CR>
-
-    nnoremap <Leader>ww :Windows<CR>
-    nnoremap <Leader>f :Files<CR>
-
-    nnoremap <Leader>f? :Files ~<CR>
-    " }
-
-    " fzf-filemru {
-    nnoremap <Leader>pr :ProjectMru --tiebreak=end<cr>
+    nnoremap <Leader>b :Buffers<CR>
+    nnoremap <Leader>t :BTags<CR>
+    nnoremap <C-p> :Files<CR>
+    nnoremap <Leader>m :Marks<CR>
+    nnoremap <Leader>f :BLines<CR>
+    " git commit for current buffer
+    nnoremap <Leader>co :BCommits<CR>
     " }
 else
     nnoremap <Leader>? :nmap<CR>
