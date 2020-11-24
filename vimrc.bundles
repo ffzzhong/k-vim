@@ -42,12 +42,15 @@ Plug 'junegunn/fzf.vim'
 
 " add by ffz
 " color schemes
-Plug 'jdkanani/vim-material-theme'
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'tomasr/molokai'
+
+" add by ffz
+" provide file icons
+" Plug 'ryanoasis/vim-devicons'
 
 " add by ffz
 " integrate wish dash.app for better API searching
@@ -63,7 +66,7 @@ Plug 'w0rp/ale'
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
 " Snippets are separated from the engine. Add this if you want them:
-" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " auto complete
 " 代码自动补全
@@ -79,7 +82,7 @@ Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
 " 快速注释
 Plug 'scrooloose/nerdcommenter'
 
-" 快速加入修改环绕字符
+" 快速加入修改环绕字符, 引号等
 " for repeat -> enhance surround.vim, . to repeat command
 Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
 
@@ -155,7 +158,8 @@ Plug 'luochen1990/rainbow'
 " nav
 " 文件树
 " nerdtree nerdtreetabs
-Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
+Plug 'preservim/nerdtree' |
+            \ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " ctrlspace
 Plug 'vim-ctrlspace/vim-ctrlspace'
@@ -190,10 +194,7 @@ if count(g:bundle_groups, 'markdown')
 endif
 
 if count(g:bundle_groups, 'golang')
-    " 1. vim a.go
-    " 2. :GoInstallBinaries
-    " vimgo  https://github.com/fatih/vim-go
-    Plug 'fatih/vim-go', {'for': 'go'}
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 endif
 
 if count(g:bundle_groups, 'scala')
@@ -213,12 +214,6 @@ if count(g:bundle_groups, 'python')
     " Plug 'fisadev/vim-isort'
     " " Shift-V 上下选中, ctrl + i 规范化
     " let g:vim_isort_map = '<C-i>'
-endif
-
-if count(g:bundle_groups, 'php')
-    " piv
-    " shift-v可以查看函数手册 / leader-pd生成注释
-    Plug 'spf13/PIV'
 endif
 
 if count(g:bundle_groups, 'ruby')
@@ -319,6 +314,7 @@ if count(g:bundle_groups, 'beta')
     " indent
     Plug 'nathanaelkane/vim-indent-guides'
     " <leader>ig to trigger
+    let g:indent_guides_enable_on_vim_startup = 1
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
     let g:indent_guides_auto_colors = 1
@@ -326,7 +322,6 @@ if count(g:bundle_groups, 'beta')
     " autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
 
     " Plug 'robbles/logstash.vim'
-    " Plug 'ryanoasis/vim-devicons'
     " Plug 'ekalinin/dockerfile.vim'
 
     " Plug 'ConradIrwin/vim-bracketed-paste'
@@ -339,15 +334,15 @@ call plug#end()
 
 " add by ffz
 " ,af 格式化代码，并在保存文件时自动格式化代码
-noremap <Leader>af :Autoformat<CR>
+" noremap <Leader>af :Autoformat<CR>
 
-let blacklist = ['html.mustache', 'template', 'md', 'markdown.mkd']
+" let blacklist = ['html.mustache', 'template', 'md', 'markdown.mkd']
 " 4.18
 " au BufWrite * if index(blacklist, &ft) < 0 | Autoformat
 " au BufWrite * :Autoformat
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
-let g:autoformat_remove_trailing_spaces = 0
+" let g:autoformat_autoindent = 0
+" let g:autoformat_retab = 0
+" let g:autoformat_remove_trailing_spaces = 0
 " let g:formatter_yapf_style = 'google'
 " let g:formatters_python = ['yapf']
 " 4.18
@@ -371,8 +366,10 @@ if has_key(g:plugs, 'ale')
     let g:ale_python_flake8_options="--ignore=E114,E116,E131 --max-line-length=120"
     " --ignore=E225,E124,E712,E116
 
-    let g:ale_sign_error = '>>'
-    let g:ale_sign_warning = '>'
+    " let g:ale_sign_error = '>>'
+    " let g:ale_sign_warning = '>'
+    let g:ale_sign_error = '⤫'
+    let g:ale_sign_warning = '⚠'
 
     let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
     let g:ale_echo_msg_error_str = 'E'
@@ -426,30 +423,26 @@ set shortmess+=c
 " diagnostics appear/become resolved.
 set signcolumn=yes
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
+" update by ffz, Make <tab> used for trigger completion, completion confirm, snippet expand and jump like VSCode.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" update by ffz, use ctrl + j/k to move up/down when choosing a completion item
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+let g:coc_snippet_next = '<tab>'
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" open yank list
+nnoremap <silent> <leader>ya  :<C-u>CocList -A --normal yank<cr>
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -475,90 +468,65 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 " auto formating when saving, modified by ffz
 let blacklist = ['html.mustache', 'template', 'md', 'markdown.mkd']
 au BufWrite * if index(blacklist, &ft) < 0 | call CocAction('format')
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
+" applying codeaction to the selected region.
+" example: `<leader>aap` for current paragraph
+xmap <leader>ac  <plug>(coc-codeaction-selected)
+nmap <leader>ac  <plug>(coc-codeaction-selected)
 
-" Remap keys for applying codeAction to the current line.
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+" Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Introduce function text object
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-" Use <TAB> for selections ranges.
-" NOTE: Requires 'textDocument/selectionRange' support from the language server.
-" coc-tsserver, coc-python are the examples of servers that support it.
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+nmap <leader>fix  <Plug>(coc-fix-current)
 " }}}
 
 
 " ultisnips {{{
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" update by ffz, 取消ultisnips 使用 tab 补全，把tab 键让给 coc
+let g:UltiSnipsExpandTrigger       = "<C-s>"
+" let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
 let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 " 定义存放代码片段的文件夹 .vim/UltiSnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
 " 进入对应filetype的snippets进行编辑
-map <leader>us :UltiSnipsEdit<CR>
+" map <leader>us :UltiSnipsEdit<CR>
 
+" update by ffz, 因为 coc 的 pumvisible 中已经可以使用 ctrl + j/k 来上下移动，
+" 所以可以注释掉这里
 " ctrl+j/k 进行选择
-func! g:JInYCM()
-    if pumvisible()
-        return "\<C-n>"
-    else
-        return "\<c-j>"
-    endif
-endfunction
+" func! g:JInYCM()
+"     if pumvisible()
+"         return "\<C-n>"
+"     else
+"         return "\<c-j>"
+"     endif
+" endfunction
 
-func! g:KInYCM()
-    if pumvisible()
-        return "\<C-p>"
-    else
-        return "\<c-k>"
-    endif
-endfunction
-inoremap <c-j> <c-r>=g:JInYCM()<cr>
-au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInYCM()<cr>"
-let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
+" func! g:KInYCM()
+"     if pumvisible()
+"         return "\<C-p>"
+"     else
+"         return "\<c-k>"
+"     endif
+" endfunction
+" inoremap <c-j> <c-r>=g:JInYCM()<cr>
+" au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInYCM()<cr>"
+" let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
 " }}}
 
 
 " delimitMate {{{
 " for python docstring ",优化输入
 au FileType python let b:delimitMate_nesting_quotes = ['"']
-au FileType php let delimitMate_matchpairs = "(:),[:],{:}"
 " 关闭某些类型文件的自动补全
 "au FileType mail let b:delimitMate_autoclose = 0
 " }}}
@@ -689,6 +657,7 @@ nnoremap <leader>gd :Gdiff<CR>
 " airline {{{
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 
 " for coc, added by ffz
 " enable/disable coc integration
@@ -716,12 +685,11 @@ let g:rainbow_active = 1
 
 " ################### 快速导航 ###################
 
-" nerdtree nerdtreetabs {{{
-" map <leader>n :NERDTreeToggle<CR>
-let NERDTreeHighlightCursorline=1
+" nerdtree nerdtree-git-plugin {{{
+map <leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$', '__pycache__']
 "close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " s/v 分屏打开文件
 let g:NERDTreeMapOpenSplit = 's'
 let g:NERDTreeMapOpenVSplit = 'v'
@@ -731,21 +699,14 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 "modify by ffz
-" let NERDTREEWinSize=40
-"end
-
-
-" nerdtreetabs
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
+let g:NERDTreeWinSize=25
 " Anchor file in tree "
 nmap <Leader>a :NERDTreeFind<CR>
-" 关闭同步
-" let g:nerdtree_tabs_synchronize_view=0
-" let g:nerdtree_tabs_synchronize_focus=0
-" 是否自动开启nerdtree
-" thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
-let g:nerdtree_tabs_open_on_console_startup=0
-let g:nerdtree_tabs_open_on_gui_startup=0
+"end
+"
+" nerdtree-git-plugin
+" let g:NERDTreeGitStatusShowClean = 1
+" let g:NERDTreeGitStatusConcealBrackets = 1
 " }}}
 
 
@@ -823,28 +784,24 @@ let g:quickrun_no_default_key_mappings = 1
 nmap <Leader>r <Plug>(quickrun)
 " }}}
 
-
-" pythonsyntax {{{
-let python_highlight_all = 1
-" }}}
-
-" piv {{{
-let g:DisableAutoPHPFolding = 1
-" }}}
-
-
 " vimgo {{{
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+
+" let g:go_auto_sameids = 1
 
 let g:go_fmt_fail_silently = 1
 " format with goimports instead of gofmt
 let g:go_fmt_command = "goimports"
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'java'] }
+" let g:go_auto_type_info = 1
+" use <leader>gt to show go types
+nnoremap <Leader>gt :GoInfo<CR>
 " }}}
 
 " markdown {{{
@@ -864,29 +821,6 @@ let g:vim_json_syntax_conceal = 0
 " }}}
 
 " css {{{
-" }}}
-
-
-" ####### temp #######
-
-" beta {{{
-" pip install yapf
-" python code format
-" format all file
-" comment out by ffz
-" autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
-" format select block
-" autocmd FileType python vnoremap <leader>y :!yapf<Cr>
-" end
-
-" Plug 'posva/vim-vue'
-
-" Plug 'millermedeiros/vim-esformatter'
-" will run esformatter after pressing <leader> followed by the 'e' and 's'
-" keys
-" nnoremap <silent> <leader>es :Esformatter<CR>
-" vnoremap <silent> <leader>es :EsformatterVisual<CR>
-
 " }}}
 
 "------------------------------------------- end of configs --------------------------------------------

@@ -43,7 +43,7 @@ it : inside current xml/html tag
 ap : a paragraph
 a) : a parenthesized block
 i{ : inside nearest curly brackets
-.......等等，可以自由组合 
+.......等等，可以自由组合
 double-operation : 当重复action 两次，比如 dd，yy，cc，这种是将 action 作用于一个特殊的text object，即当前所在行
 
 [通用]
@@ -56,7 +56,7 @@ N<command> ： 重复执行command N次，比如10x，代表删除连续的10个
 [复制，粘贴，剪切，以及字符的操作]
 y ： 普通模式下，使用y复制
 yy ：复制游标所在的整行（3yy表示复制3行）
-y0 或 y^ ： 复制至行首，不包含光标所在处字符 
+y0 或 y^ ： 复制至行首，不包含光标所在处字符
 y$ ： 复制至行尾，包含光标所在处字符
 yw ： 复制一个单词
 y2w ： 复制两个单词

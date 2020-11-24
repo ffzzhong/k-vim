@@ -651,9 +651,18 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " add by ffz
 " gruvbox, true color
-" colorscheme gruvbox
-" let g:airline_theme='gruvbox'
-
+set background=dark
+let g:airline_theme='gruvbox'
+let g:gruvbox_invert_selection=0
+" 这个用来 override 侧边栏语法错误和告警的样式, enable 可能导致 crash
+let g:gruvbox_invert_signs=0
+let g:gitgutter_override_sign_column_highlight=1
+" 这个是用来移除vertical split 的那条线
+set fillchars+=vert:\ 
+colorscheme gruvbox
+" 每次新打开 vim 时就会有很多空行, 这个设置可以用来隐藏空行的波浪线~，
+highlight EndOfBuffer guifg=bg
+"
 " onedark
 " let g:onedark_hide_endofbuffer=1
 " let g:onedark_terminal_italics=1
@@ -661,10 +670,10 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " colorscheme onedark
 "
 " one
-set background=dark
-let g:one_allow_italics=1
-let g:airline_theme='one'
-colorscheme one
+" set background=dark
+" let g:one_allow_italics=1
+" let g:airline_theme='one'
+" colorscheme one
 "
 " vim-hybrid-material
 " 虽然和 iterm material-design-colors 是一体，但是和 iterm one half 更好看
@@ -724,33 +733,33 @@ if !has('gui_running')
     let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
 
     function! OpenFloatingWin()
-    let height = &lines - 3
-    let width = float2nr(&columns - (&columns * 2 / 10))
-    let col = float2nr((&columns - width) / 2)
+        let height = &lines - 3
+        let width = float2nr(&columns - (&columns * 2 / 10))
+        let col = float2nr((&columns - width) / 2)
 
-    " 设置浮动窗口打开的位置，大小等。
-    " 这里的大小配置可能不是那么的 flexible 有继续改进的空间
-    let opts = {
-            \ 'relative': 'editor',
-            \ 'row': height * 0.3,
-            \ 'col': col + 30,
-            \ 'width': width * 2 / 3,
-            \ 'height': height / 2
-            \ }
+        " 设置浮动窗口打开的位置，大小等。
+        " 这里的大小配置可能不是那么的 flexible 有继续改进的空间
+        let opts = {
+                \ 'relative': 'editor',
+                \ 'row': height * 0.3,
+                \ 'col': col + 30,
+                \ 'width': width * 2 / 3,
+                \ 'height': height / 2
+                \ }
 
-    let buf = nvim_create_buf(v:false, v:true)
-    let win = nvim_open_win(buf, v:true, opts)
+        let buf = nvim_create_buf(v:false, v:true)
+        let win = nvim_open_win(buf, v:true, opts)
 
-    " 设置浮动窗口高亮
-    call setwinvar(win, '&winhl', 'Normal:Pmenu')
+        " 设置浮动窗口高亮
+        call setwinvar(win, '&winhl', 'Normal:Pmenu')
 
-    setlocal
-            \ buftype=nofile
-            \ nobuflisted
-            \ bufhidden=hide
-            \ nonumber
-            \ norelativenumber
-            \ signcolumn=no
+        setlocal
+                \ buftype=nofile
+                \ nobuflisted
+                \ bufhidden=hide
+                \ nonumber
+                \ norelativenumber
+                \ signcolumn=no
     endfunction
 
     nmap <Leader>? <plug>(fzf-maps-n)
@@ -769,4 +778,3 @@ if !has('gui_running')
 else
     nnoremap <Leader>? :nmap<CR>
 endif
-
