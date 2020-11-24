@@ -86,12 +86,6 @@ YCM
 ,jd goto definition else declaration
 ,gd goto definition
 
-[快速文件操作]
- kien/ctrlp.vim
-,,a 快速查找文件
-,f 最近编辑过的文件
-,fu 快速显示本文件内的函数
-ctrl + j/k 上下移动
 
 [快速行间跳转和行内跳转]
 Lokaltog/vim-easymotion

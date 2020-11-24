@@ -452,12 +452,10 @@ map <leader>tl :tablast<cr>
 
 map <leader>tj :tabnext<cr>
 map <leader>tk :tabprev<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprev<cr>
 
+map <leader>tn :tabnew<cr>
 map <leader>te :tabedit<cr>
-map <leader>td :tabclose<cr>
-map <leader>tm :tabm<cr>
+map <leader>tc :tabclose<cr>
 
 " normal模式下切换到确切的tab
 noremap <leader>1 1gt
@@ -479,10 +477,6 @@ let g:last_active_tab = 1
 " vnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
 nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
 autocmd TabLeave * let g:last_active_tab = tabpagenr()
-
-" 新建tab  Ctrl+t
-nnoremap <C-t>     :tabnew<CR>
-inoremap <C-t>     <Esc>:tabnew<CR>
 
 
 " => 选中及操作改键
@@ -722,7 +716,7 @@ if !has('gui_running')
     let $LANG = 'en_US'
 
     " Empty value to disable preview window altogether
-    let g:fzf_preview_window = ''
+    " let g:fzf_preview_window = ''
     " Always enable preview window on the right with 40% width
     " let g:fzf_preview_window = 'right:40%'
 
@@ -731,6 +725,7 @@ if !has('gui_running')
 
     " 打开 fzf 的方式选择 floating window
     let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
+    " let g:fzf_layout = { 'window': { 'width': 0.6, 'height': 0.6 } }
 
     function! OpenFloatingWin()
         let height = &lines - 3
