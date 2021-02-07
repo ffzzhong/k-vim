@@ -56,12 +56,8 @@ Plug 'tomasr/molokai'
 " integrate wish dash.app for better API searching
 " Plug 'rizzatti/dash.vim'
 
-" add by ffz
-" show indent
-" Plug 'Yggdroot/indentLine'
-
 " syntastic
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -69,8 +65,10 @@ Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " auto complete
-" 代码自动补全
-" Plug 'Valloric/YouCompleteMe'
+" coc 是一个 language client，负责跟 language server 通信
+" coc 提供的一些跟某个语言相关的插件，这些插件就是配置好的 language servers
+" 比如 coc-python，coc-go，coc-yaml
+" 都是用于提供相应语言的开箱即用的 language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " add by ffz 2020.11.24
 Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
@@ -174,12 +172,6 @@ Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
 Plug 'kana/vim-textobj-indent'
 
-if count(g:bundle_groups, 'tmux')
-    " tmux
-    " For tmux navigator Ctrl-hjkl
-    Plug 'christoomey/vim-tmux-navigator'
-endif
-
 if count(g:bundle_groups, 'markdown')
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 endif
@@ -187,23 +179,39 @@ endif
 if count(g:bundle_groups, 'golang')
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
     " vim-go {{{
+    " format with goimports instead of gofmt
+    "
+    " disable vim-go :GoDef short cut (gd)
+    " this is handled by LanguageClient: coc
+    let g:go_def_mapping_enabled = 0
+    "
+    let g:go_fmt_command = "goimports"
+    let g:go_autodetect_gopath = 1
+    let g:go_list_type = "quickfix"
+
+    let g:go_version_warning = 1
+    let g:go_highlight_types = 1
+    let g:go_highlight_fields = 1
     let g:go_highlight_functions = 1
+    let g:go_highlight_function_calls = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_extra_types = 1
     let g:go_highlight_methods = 1
     let g:go_highlight_structs = 1
-    let g:go_highlight_operators = 1
     let g:go_highlight_build_constraints = 1
-    let g:go_highlight_types = 1
-    let g:go_highlight_extra_types = 1
-    let g:go_highlight_fields = 1
+    let g:go_highlight_generate_tags = 1
+
+    let g:godef_split=2
 
     " let g:go_auto_sameids = 1
 
     let g:go_fmt_fail_silently = 1
-    " format with goimports instead of gofmt
-    let g:go_fmt_command = "goimports"
     " let g:go_auto_type_info = 1
+    " use <leader>gi to show go types
+    " nnoremap <Leader>gi :GoInfo<CR>
+    "
     " use <leader>gt to show go types
-    nnoremap <Leader>gt :GoInfo<CR>
+    nnoremap <Leader>gt :GoTest<CR>
     " }}}
 endif
 
@@ -269,74 +277,6 @@ endif
 " Add plugins to &runtimepath
 call plug#end()
 
-" add by ffz
-" ,af 格式化代码，并在保存文件时自动格式化代码
-" noremap <Leader>af :Autoformat<CR>
-
-" let blacklist = ['html.mustache', 'template', 'md', 'markdown.mkd']
-" 4.18
-" au BufWrite * if index(blacklist, &ft) < 0 | Autoformat
-" au BufWrite * :Autoformat
-" let g:autoformat_autoindent = 0
-" let g:autoformat_retab = 0
-" let g:autoformat_remove_trailing_spaces = 0
-" let g:formatter_yapf_style = 'google'
-" let g:formatters_python = ['yapf']
-" 4.18
-" let g:formatters_python = ['black']
-" let g:formatters_ruby = ['rubocop']
-" let g:formatters_python = ['autopep8']
-" end
-
-" ################### 语法检查 ######################
-" ale {{{
-if has_key(g:plugs, 'ale')
-    " pip install flake8
-    " npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard
-    " npm install -g eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
-    let g:ale_linters = {
-                \   'python': ['flake8'],
-                \   'javascript': ['eslint'],
-                \}
-
-    " E501 -> 120 chars
-    let g:ale_python_flake8_options="--ignore=E114,E116,E131 --max-line-length=120"
-    " --ignore=E225,E124,E712,E116
-
-    " let g:ale_sign_error = '>>'
-    " let g:ale_sign_warning = '>'
-    let g:ale_sign_error = '⤫'
-    let g:ale_sign_warning = '⚠'
-
-    let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-    let g:ale_echo_msg_error_str = 'E'
-    let g:ale_echo_msg_warning_str = 'W'
-    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-    nmap <silent> <Leader>ep <Plug>(ale_previous_wrap)
-    nmap <silent> <Leader>en <Plug>(ale_next_wrap)
-
-    nnoremap <silent> <Leader>ec :ALEToggle<CR>
-
-    " troggle quickfix list
-    function! ToggleErrors()
-        let old_last_winnr = winnr('$')
-        lclose
-        if old_last_winnr == winnr('$')
-            " Nothing was closed, open syntastic_error location panel
-            lopen
-        endif
-    endfunction
-    " nnoremap <Leader>e :call ToggleErrors()<cr>
-    " modify by ffz
-    nnoremap <Leader>es :call ToggleErrors()<cr>
-
-    let g:ale_set_highlights = 1
-    highlight clear ALEErrorSign
-    highlight clear ALEWarningSign
-endif
-" }}}
-
 " ################### 自动补全 ###################
 " coc {{{
 " TextEdit might fail if hidden is not set.
@@ -360,39 +300,41 @@ set shortmess+=c
 " diagnostics appear/become resolved.
 set signcolumn=yes
 
-" update by ffz, 2020.11.24
+" update by ffz, 2020.12.24
+" use tab for trigger completion, completion confirm, snippet expand and jump like VSCode.
+" check coc-snipp doc
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" " Use <leader>x for convert visual selected code to snippet
+xmap <leader>x <Plug>(coc-convert-snippet)
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_next = '<C-j>'
 
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-" end 2020.11.24
+let g:coc_snippet_prev = '<C-k>'
+" end 2020.12.24
 
 " update by ffz, use ctrl + j/k to move up/down when choosing a completion item
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
-
 " open yank list
 nnoremap <silent> <leader>ya  :<C-u>CocList -A --normal yank<cr>
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" diagnostics
+nmap <silent> <Leader>ep <Plug>(coc-diagnostic-prev)
+nmap <silent> <Leader>en <Plug>(coc-diagnostic-next)
+nnoremap <silent> <Leader>es :CocDiagnostics<CR>
 
 " GoTo code navigation.
 nmap <leader>jd <Plug>(coc-definition)
@@ -425,7 +367,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 command! -nargs=0 Format :call CocAction('format')
 " auto formating when saving, modified by ffz
 let blacklist = ['html.mustache', 'template', 'md', 'markdown.mkd']
-au BufWrite * if index(blacklist, &ft) < 0 | call CocAction('format')
+let whitelist = ['go', 'py', 'yaml', 'json']
+" au BufWrite * if index(blacklist, &ft) < 0 | call CocAction('format')
+au BufWrite * if index(whitelist, &ft) >= 0 | call CocAction('format')
 
 " applying codeaction to the selected region.
 " example: `<leader>aap` for current paragraph
@@ -443,7 +387,8 @@ nmap <leader>fix  <Plug>(coc-fix-current)
 
 " ultisnips & vim-snippets{{{
 " update by ffz, 2020.11.24
-" utilsnips & vim-snippets 只提供 code snippets
+" 取消vim-snippets 的 tab 键位映射, 让给 coc，这样 utilsnips & vim-snippets 只提供 code snippets
+let g:UltiSnipsExpandTrigger="<Nop>"
 " 键位映射都只由 coc-snippets 负责
 " end 2020.11.24
 " }}}
@@ -556,12 +501,6 @@ let g:ctrlsf_mapping = {
 " fugitive {{{
 " :Gdiff  :Gstatus :Gvsplit
 nnoremap <leader>gd :Gdiff<CR>
-" not ready to open
-" <leader>gb maps to :Gblame<CR>
-" <leader>gs maps to :Gstatus<CR>
-" <leader>gl maps to :Glog<CR>
-" <leader>gc maps to :Gcommit<CR>
-" <leader>gp maps to :Git push<CR>
 " }}}
 
 " ################### 显示增强 ###################
@@ -611,7 +550,7 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 "modify by ffz
-let g:NERDTreeWinSize=25
+" let g:NERDTreeWinSize=30
 " Anchor file in tree "
 nmap <Leader>a :NERDTreeFind<CR>
 "end

@@ -335,8 +335,6 @@ function! HideNumber()
 endfunc
 
 " F 区功能键设置
-" F1 tagbarToggle
-" nnoremap <F1> :TagbarToggle<CR>
 " F2 行号开关
 nnoremap <F2> :call HideNumber()<CR>
 " F3 项目结构开关
@@ -349,7 +347,7 @@ map <F5> :QuickRun<CR>
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " F9 显示打印字符开关
 nnoremap <F9> :set list! list?<CR>
-" F4 替换为 tagbarToggle，将换行开关替换为 F10
+" F10 换行开关
 nnoremap <F10> :set wrap! wrap?<CR>
 
 " disbale paste mode when leaving insert mode
@@ -490,6 +488,11 @@ map Y y$
 
 " 复制选中区到系统剪切板中
 vnoremap <leader>y "+y
+
+" add by ffz, 2020.12.17
+" 一次复制，多次粘贴
+nnoremap <silent> <C-p> viw"0p
+" end 2020.12.17
 
 " auto jump to end of select
 " vnoremap <silent> y y`]
@@ -700,7 +703,7 @@ highlight SpellLocal term=underline cterm=underline
 " append a blank line below,and not go to the insert mode
 nnoremap al o<ESC>
 nnoremap <Leader>bd :w<CR>:bd<CR>
-let g:snips_author = 'fenfenzhong92'
+let g:snips_author = 'fenfenzhong'
 
 " ruler
 " 超过定义的长度则显示异常
@@ -764,7 +767,9 @@ if !has('gui_running')
     nnoremap <Leader>ag :Ag<CR>
     nnoremap <Leader>b :Buffers<CR>
     nnoremap <Leader>t :BTags<CR>
-    nnoremap <C-p> :Files<CR>
+    " modify by ffz, 不常用，让给“一次复制，多次粘贴”, 2020.12.17
+    " nnoremap <C-p> :Files<CR>
+    " end 2020.12.17
     nnoremap <Leader>m :Marks<CR>
     nnoremap <Leader>f :BLines<CR>
     " git commit for current buffer
