@@ -47,7 +47,6 @@ filetype plugin indent on
 " General Settings 基础设置
 "==========================================
 
-
 " history存储容量
 set history=2000
 
