@@ -363,13 +363,15 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+" update by ffz 2021-02-18 08:51, use coc.preference.formatOnSaveFileTypes
 " Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+" command! -nargs=0 Format :call CocAction('format')
+
+" update by ffz 2021-02-18 08:51, use coc.preference.formatOnSaveFileTypes
 " auto formating when saving, modified by ffz
-let blacklist = ['html.mustache', 'template', 'md', 'markdown.mkd']
-let whitelist = ['go', 'py', 'yaml', 'json']
-" au BufWrite * if index(blacklist, &ft) < 0 | call CocAction('format')
-au BufWrite * if index(whitelist, &ft) >= 0 | call CocAction('format')
+" let blacklist = ['html.mustache', 'template', 'md', 'markdown.mkd']
+" let whitelist = ['go', 'py', 'yaml', 'json']
+" au BufWrite * if index(whitelist, &ft) >= 0 | call CocAction('format')
 
 " applying codeaction to the selected region.
 " example: `<leader>aap` for current paragraph

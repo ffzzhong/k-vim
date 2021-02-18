@@ -702,7 +702,7 @@ highlight SpellLocal term=underline cterm=underline
 " append a blank line below,and not go to the insert mode
 nnoremap al o<ESC>
 nnoremap <Leader>bd :w<CR>:bd<CR>
-let g:snips_author = 'fenfenzhong'
+let g:snips_author = 'lingfeng'
 
 " ruler
 " 超过定义的长度则显示异常
