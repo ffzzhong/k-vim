@@ -77,7 +77,7 @@ set noswapfile
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 
 " 突出显示当前列
-set cursorcolumn
+" set cursorcolumn
 " 突出显示当前行
 set cursorline
 
@@ -352,8 +352,7 @@ nnoremap <F10> :set wrap! wrap?<CR>
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
 
-" F5 set paste问题已解决, 粘贴代码前不需要按F5了
-" F5 粘贴模式paste_mode开关,用于有格式的代码粘贴
+" 在 insert mode 模式下，粘贴代码时，自动设置 past mode
 " Automatically set paste mode in Vim when pasting in insert mode
 function! XTermPasteBegin()
   set pastetoggle=<Esc>[201~
@@ -485,8 +484,16 @@ vnoremap > >gv
 " y$ -> Y Make Y behave like other capitals
 map Y y$
 
+" add by ffz 2021-02-20 18:54
+" yank a region in vim without the cursor moving to the top of the block
 " 复制选中区到系统剪切板中
-vnoremap <leader>y "+y
+vnoremap <leader>y "+ygv<Esc>
+
+" add by ffz 2021-02-20 18:49
+" yank a region in vim without the cursor moving to the top of the block
+" https://stackoverflow.com/questions/3806629/yank-a-region-in-vim-without-the-cursor-moving-to-the-top-of-the-block
+" adjust <leader>y as well
+vnoremap y ygv<Esc>
 
 " add by ffz, 2020.12.17
 " 一次复制，多次粘贴
@@ -546,8 +553,7 @@ nnoremap U <C-r>
 "==========================================
 
 " 具体编辑文件类型的一般设置，比如不要 tab 等
-autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-autocmd FileType ruby,javascript,html,css,xml,json,yaml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd FileType ruby,javascript,html,css,xml,json,yaml,proto set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 " modify by ffz
 " autocmd FileType ruby,javascript,html,css,xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
 " end
@@ -560,43 +566,6 @@ autocmd BufRead,BufNewFile Appraisals set filetype=ruby
 
 " disable showmatch when use > in php
 au BufWinEnter *.php set mps-=<:>
-
-" 保存文件时删除多余空格
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,yaml,perl,rb autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
-
-" 定义函数AutoSetFileHead，自动插入文件头
-autocmd BufNewFile *.sh,*.rb,*.py exec ":call AutoSetFileHead()"
-function! AutoSetFileHead()
-    "如果文件类型为.sh文件
-    if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
-    endif
-
-    "如果文件类型为python
-    if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        " call append(1, "\# encoding: utf-8")
-        call append(1, "\# -*- coding: utf-8 -*-")
-        " call setline(1, "\# -*- coding: utf-8 -*-")
-    endif
-
-    " 如果文件类型为ruby
-    if &filetype == 'ruby'
-        call setline(1, "\#!/usr/local/bin/ruby -w")
-        call append(1, "\# -*- coding: utf-8 -*-")
-    endif
-
-    normal G
-    normal o
-    normal o
-endfunc
 
 
 " 设置可以高亮的关键字
@@ -654,7 +623,7 @@ let g:gruvbox_invert_selection=0
 let g:gruvbox_invert_signs=0
 let g:gitgutter_override_sign_column_highlight=1
 " 这个是用来移除vertical split 的那条线
-set fillchars+=vert:\ 
+" set fillchars+=vert:\ 
 colorscheme gruvbox
 " 每次新打开 vim 时就会有很多空行, 这个设置可以用来隐藏空行的波浪线~，
 highlight EndOfBuffer guifg=bg
@@ -702,7 +671,6 @@ highlight SpellLocal term=underline cterm=underline
 " append a blank line below,and not go to the insert mode
 nnoremap al o<ESC>
 nnoremap <Leader>bd :w<CR>:bd<CR>
-let g:snips_author = 'lingfeng'
 
 " ruler
 " 超过定义的长度则显示异常

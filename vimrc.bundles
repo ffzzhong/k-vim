@@ -50,14 +50,19 @@ Plug 'tomasr/molokai'
 
 " add by ffz
 " provide file icons
-" Plug 'ryanoasis/vim-devicons'
+" Plug 'Yggdroot/indentLine'
+" let g:indentLine_setConceal = 0
 
+" add by ffz
+" provide file icons
+" Plug 'ryanoasis/vim-devicons'
+"
 " add by ffz
 " integrate wish dash.app for better API searching
 " Plug 'rizzatti/dash.vim'
 
 " syntastic
-" Plug 'w0rp/ale'
+" Plug 'dense-analysis/ale'
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -179,13 +184,14 @@ endif
 if count(g:bundle_groups, 'golang')
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
     " vim-go {{{
-    " format with goimports instead of gofmt
     "
     " disable vim-go :GoDef short cut (gd)
     " this is handled by LanguageClient: coc
     let g:go_def_mapping_enabled = 0
     "
+    " format with goimports instead of gofmt
     let g:go_fmt_command = "goimports"
+    let g:go_addtags_transform = "camelcase"
     let g:go_autodetect_gopath = 1
     let g:go_list_type = "quickfix"
 
@@ -212,6 +218,11 @@ if count(g:bundle_groups, 'golang')
     "
     " use <leader>gt to show go types
     nnoremap <Leader>gt :GoTest<CR>
+
+    " add by ffz 2021-02-20 19:16
+    " show indent line when using Yggdroot/indentLine
+    " https://github.com/Yggdroot/indentLine/issues/210
+    " set list lcs=tab:\¦\ 
     " }}}
 endif
 
@@ -341,6 +352,34 @@ nmap <leader>jd <Plug>(coc-definition)
 nmap <leader>jt <Plug>(coc-type-definition)
 nmap <leader>ji <Plug>(coc-implementation)
 nmap <leader>jr <Plug>(coc-references)
+" usage:
+" go the difinition with vsplit if the definition is in another file
+" and if the definition is just in the same file, then only move the cursor
+" check this article
+" https://ramgo.li/posts/coc.nvim_split_if_not_open/
+" and the github issue: https://github.com/neoclide/coc.nvim/issues/586, 
+" check the comment: https://github.com/neoclide/coc.nvim/issues/586#issuecomment-701711012
+function! SplitIfNotOpen(...)
+    let fname = a:1
+    let call = ''
+    if a:0 == 2
+	let fname = a:2
+	let call = a:1
+    endif
+    let bufnum=bufnr(expand(fname))
+    let winnum=bufwinnr(bufnum)
+    if winnum != -1
+	" Jump to existing split
+	exe winnum . "wincmd w"
+    else
+	" Make new split as usual
+	exe "vsplit " . fname
+    endif
+    " Execute the cursor movement command
+    exe call
+endfunction
+
+command! -nargs=+ CocSplitIfNotOpen :call SplitIfNotOpen(<f-args>)
 
 " add by ffz, 2020.11.24
 " let g:coc_fzf_preview = ''
@@ -393,6 +432,9 @@ nmap <leader>fix  <Plug>(coc-fix-current)
 let g:UltiSnipsExpandTrigger="<Nop>"
 " 键位映射都只由 coc-snippets 负责
 " end 2020.11.24
+" update by ffz, 2021.06.01
+let g:snips_author = 'lingfeng'
+" end 2020.06.01
 " }}}
 
 
