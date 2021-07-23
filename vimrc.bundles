@@ -17,7 +17,7 @@ filetype off " required! turn off
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
     " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'nginx', 'golang', 'ruby', 'less', 'php', 'coffeescript', 'shell', 'scala']
-    let g:bundle_groups=['python', 'golang', 'json', 'scala', 'yaml', 'Jenkinsfile', 'terraform', 'mustache', 'Dockerfile', 'markdown']
+    let g:bundle_groups=['thrift', 'golang', 'python', 'json', 'yaml', 'Jenkinsfile', 'terraform', 'mustache', 'Dockerfile', 'markdown']
 endif
 
 " ----------------------------------------------------------------------------
@@ -179,6 +179,10 @@ Plug 'kana/vim-textobj-indent'
 
 if count(g:bundle_groups, 'markdown')
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+endif
+
+if count(g:bundle_groups, 'thrift')
+    Plug 'solarnz/thrift.vim'
 endif
 
 if count(g:bundle_groups, 'golang')
@@ -610,6 +614,16 @@ nmap <Leader>a :NERDTreeFind<CR>
 let g:tagbar_autofocus = 1
 " let g:tagbar_autoshowtag = 1
 " let g:tagbar_show_visibility = 1
+
+" add by ffz, 使用<leader>t 快速跳转到tagbar具体位置, 2021.07.22
+noremap <silent> <Leader>t :TagbarOpen fj<cr>
+" end 2021.07.22
+
+" add by ffz, 2021-07-22
+" by default tagbar will be sorted according to name, so disable it
+let g:tagbar_sort = 0
+" end 2021-07-22
+
 
 " go语言的tagbar配置
 " 1. install gotags 'go get -u github.com/jstemmer/gotags'

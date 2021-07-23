@@ -436,22 +436,27 @@ nnoremap ]b :bnext<cr>
 " 使用方向键切换buffer
 noremap <left> :bp<CR>
 noremap <right> :bn<CR>
-
+" 删除buffer
+nnoremap <Leader>bd :bd<CR>
 
 " tab 操作
 " http://vim.wikia.com/wiki/Alternative_tab_navigation
 " http://stackoverflow.com/questions/2005214/switching-to-a-particular-tab-in-vim
 
+" add by ffz, 很少使用，注释掉， 2021.07.23
 " tab切换
-map <leader>th :tabfirst<cr>
-map <leader>tl :tablast<cr>
+" map <leader>th :tabfirst<cr>
+" map <leader>tl :tablast<cr>
+" end 2021.07.23
 
-map <leader>tj :tabnext<cr>
-map <leader>tk :tabprev<cr>
+nnoremap tp :tabprev<cr>
+nnoremap tn :tabnext<cr>
 
-map <leader>tn :tabnew<cr>
-map <leader>te :tabedit<cr>
-map <leader>tc :tabclose<cr>
+" add by ffz, 修改原有的key mapping, 2021.07.23
+" tab create
+map <leader>tc :tabnew<cr>
+" map <leader>tc :tabclose<cr>
+" end 2021.07.23
 
 " normal模式下切换到确切的tab
 noremap <leader>1 1gt
@@ -541,9 +546,12 @@ nnoremap <leader>w :w<CR>
 " Quickly save and close
 nnoremap <leader>wq :wq<CR>
 
+" mark 相关
 " 交换 ' `, 使得可以快速使用'跳到marked位置
 nnoremap ' `
 nnoremap ` '
+" delete 所有marks
+nnoremap <leader>dm :delmarks!<CR>
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
@@ -670,7 +678,6 @@ highlight SpellLocal term=underline cterm=underline
 " modify by ffz
 " append a blank line below,and not go to the insert mode
 nnoremap al o<ESC>
-nnoremap <Leader>bd :w<CR>:bd<CR>
 
 " ruler
 " 超过定义的长度则显示异常
@@ -733,7 +740,10 @@ if !has('gui_running')
 
     nnoremap <Leader>ag :Ag<CR>
     nnoremap <Leader>b :Buffers<CR>
-    nnoremap <Leader>t :BTags<CR>
+    " modify by ffz, BTags 不常用，让给"跳转到tagbar具体位置", 2021.07.22
+    " nnoremap <Leader>t :BTags<CR>
+    " end 2021.07.22
+    "
     " modify by ffz, 不常用，让给“一次复制，多次粘贴”, 2020.12.17
     " nnoremap <C-p> :Files<CR>
     " end 2020.12.17
