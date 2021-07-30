@@ -436,8 +436,6 @@ nnoremap ]b :bnext<cr>
 " 使用方向键切换buffer
 noremap <left> :bp<CR>
 noremap <right> :bn<CR>
-" 删除buffer
-nnoremap <Leader>bd :bd<CR>
 
 " tab 操作
 " http://vim.wikia.com/wiki/Alternative_tab_navigation
@@ -657,7 +655,6 @@ highlight EndOfBuffer guifg=bg
 " colorscheme hybrid_material
 " colorscheme hybrid_reverse
 "
-" colorscheme desert
 " colorscheme molokai
 
 " 设置标记一列的背景颜色和数字一行颜色一致

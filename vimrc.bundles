@@ -37,6 +37,11 @@ Plug '/usr/local/opt/fzf'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" add by ffz, 2021.07.29
+" 一次性关闭不用的buffer，节省内存
+Plug 'Asheq/close-buffers.vim'
+" end 2021.07.29
+
 " 4.18
 " Plug 'Chiel92/vim-autoformat'
 
@@ -142,10 +147,15 @@ Plug 'thinca/vim-quickrun'
 
 " git
 " fugitive
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
+" add by ffz, 2021.07.29
+" vim-gitgutter 比fugitive 好用多了
+Plug 'airblade/vim-gitgutter'
+" end 2021.07.29
 
 " signify 用来显示文件中的修改状态
-Plug 'mhinz/vim-signify'
+" 可以取消，用git-gutter就够了
+" Plug 'mhinz/vim-signify'
 
 " view
 " airline
@@ -546,10 +556,23 @@ let g:ctrlsf_mapping = {
 
 " git.  git操作还是习惯命令行,vim里面处理简单diff编辑操作
 
-" fugitive {{{
-" :Gdiff  :Gstatus :Gvsplit
-nnoremap <leader>gd :Gdiff<CR>
+" add by ffz, 2021.07.29
+" 移除fugitive, 使用git-gutter, git-gutter 好用多了
+" 由于平时只用git，所以git-gutter就够了，不用vim-signify
+" vim-gitgutter {{{
+" highlight change
+nnoremap <leader>gh :GitGutterLineHighlightsToggle<CR>
+" git diff preview
+nnoremap <leader>gd :GitGutterPreviewHunk<CR>
 " }}}
+" end 2021.07.29
+"
+" add by ffz, 2021.07.29
+" close-buffers {{{
+" clean unused buffers, 移除没有在当前windows里面的buffer，节省内存
+nnoremap <leader>bc :Bdelete hidden<CR>
+" }}}
+" end 2021.07.29
 
 " ################### 显示增强 ###################
 
@@ -587,23 +610,43 @@ let g:rainbow_active = 1
 " nerdtree nerdtree-git-plugin {{{
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$', '__pycache__']
-"close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" s/v 分屏打开文件
-let g:NERDTreeMapOpenSplit = 's'
-let g:NERDTreeMapOpenVSplit = 'v'
-"modify by ffz"
 "prevents NERDTree from hiding when first selecting a file."
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-"modify by ffz
+" s/v 分屏打开文件
+let g:NERDTreeMapOpenSplit = 's'
+let g:NERDTreeMapOpenVSplit = 'v'
+"close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+" 设置nerdtree宽度
 " let g:NERDTreeWinSize=30
 " Anchor file in tree "
 nmap <Leader>a :NERDTreeFind<CR>
-"end
+
+" add by ffz, 2021.07.29
+" 在nerdtree里面自动高亮当前文件: https://codeyarns.com/tech/2014-05-05-how-to-highlight-current-file-in-nerdtree.html
+" Check if NERDTree is open or active
+" function IsNERDTreeOpen()
+"     return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+" endfunction
+" " Call NERDTreeFind if NERDTree is active, current window contains a modifiable
+" " file, and we're not in vimdiff
+" function SyncTree()
+"     if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+"         NERDTreeFind
+"         wincmd p
+"     endif
+" endfunction
+" Highlight currently open buffer in NERDTree
+" autocmd BufEnter * call SyncTree()
+" nmap <Leader>a :call SyncTree()<CR>
+" " end 2021.07.29
 "
 " nerdtree-git-plugin
+let g:NERDTreeGitStatusUseNerdFonts = 1
 " let g:NERDTreeGitStatusShowClean = 1
 " let g:NERDTreeGitStatusConcealBrackets = 1
 " }}}

@@ -76,5 +76,18 @@
     }
   ],
   "yank.enableCompletion": false,
-  "yank.priority": 1
+  "yank.priority": 1,
+  "explorer.toggle": true,
+  "explorer.width": 30,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.previewAction.onHover": false,
+  "explorer.file.reveal.auto": true,
+  "explorer.keyMappings.global": {
+    "<cr>": [
+      "expandable?",
+      "expand",
+      "open"
+    ],
+    "v": "open:vsplit"
+  }
 }
