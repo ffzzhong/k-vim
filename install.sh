@@ -78,7 +78,7 @@ export SHELL="/bin/sh"
 if $FOR_VIM; then
     vim -u $HOME/.vimrc.bundles +PlugInstall! +PlugClean! +qall
 else
-    nvim -u $CURRENT_DIR/vimrc.bundles +PlugInstall! +PlugClean! +qall
+    nvim -u $HOME/.config/nvim/plugins/plugins.vim +PlugInstall! +PlugClean! +qall
 fi
 export SHELL=$system_shell
 

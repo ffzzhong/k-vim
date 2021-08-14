@@ -41,7 +41,7 @@
   "coc.preferences.jumpCommand": "CocSplitIfNotOpen",
   "sh.enable": true,
   "python.formatting.provider": "black",
-  "python.pythonPath": "/Users/lingfeng.zhong/.pyenv/versions/3.7.5/bin/python",
+  "python.pythonPath": "/Users/lingfengzhong/.pyenv/versions/3.9.5/bin/python",
   "yaml.format.enable": true,
   "yaml.validate": false,
   "yaml.schemas": {
@@ -51,20 +51,6 @@
     "!com.rakuten.dess.config.dataset.cloudstorage.CloudStorageConsumerConfig consumer",
     "!com.rakuten.dess.config.dataset.cloudstorage.CloudStorageProducerConfig producer"
   ],
-  "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": [
-        "go.mod",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": [
-        "go"
-      ]
-    }
-  },
   "java.configuration.runtimes": [
     {
       "name": "JavaSE-1.8",
@@ -77,17 +63,28 @@
   ],
   "yank.enableCompletion": false,
   "yank.priority": 1,
-  "explorer.toggle": true,
   "explorer.width": 30,
+  "explorer.buffer.root.template": "[icon] [title] [hidden & 1]",
+  "explorer.file.root.template": "[icon] [title] [root] [hidden & 1]",
+  "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
+  "explorer.file.reveal.auto": false,
   "explorer.icon.enableNerdfont": true,
   "explorer.previewAction.onHover": false,
-  "explorer.file.reveal.auto": true,
+  "explorer.focus": true,
   "explorer.keyMappings.global": {
-    "<cr>": [
+    "o": [
       "expandable?",
-      "expand",
+      [
+        "expanded?",
+        "collapse",
+        "expand"
+      ],
       "open"
     ],
-    "v": "open:vsplit"
+    "v": "open:vsplit",
+    "s": "open:split",
+    "ma": "addFile",
+    "mA": "addDirectory",
+    "mm": "rename"
   }
 }

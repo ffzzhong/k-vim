@@ -44,8 +44,6 @@ Plug 'Asheq/close-buffers.vim'
 
 " 4.18
 " Plug 'Chiel92/vim-autoformat'
-
-" add by ffz
 " color schemes
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
@@ -54,7 +52,6 @@ Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'tomasr/molokai'
 
 " add by ffz
-" provide file icons
 " Plug 'Yggdroot/indentLine'
 " let g:indentLine_setConceal = 0
 
@@ -107,8 +104,8 @@ Plug 'junegunn/vim-easy-align'
 "更高效的移动 [,, + w/fx/h/j/k/l]
 Plug 'Lokaltog/vim-easymotion'
 
-" 更高效的行内移动, f/F/t/T, 才触发
 " quickscope
+" 更高效的行内移动, f/F/t/T, 才触发
 Plug 'unblevable/quick-scope'
 
 " 成对标签跳转
@@ -463,10 +460,6 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDAltDelims_python = 1
 " }}}
 
-" trailing-whitespace {{{
-map <leader><space> :FixWhitespace<cr>
-" }}}
-
 " easyalign {{{
 vmap <Leader>ga <Plug>(EasyAlign)
 nmap <Leader>ga <Plug>(EasyAlign)
@@ -496,10 +489,10 @@ map <Leader><leader>. <Plug>(easymotion-repeat)
 " quick-scope {{{
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " macvim/gvim会有问题, 暂时注解
-" let g:qs_first_occurrence_highlight_color = '#afff5f' " gui vim
-" let g:qs_first_occurrence_highlight_color = 155       " terminal vim
-" let g:qs_second_occurrence_highlight_color = '#5fffff'  " gui vim
-" let g:qs_second_occurrence_highlight_color = 81         " terminal vim
+let g:qs_first_occurrence_highlight_color = '#afff5f' " gui vim
+let g:qs_first_occurrence_highlight_color = 155       " terminal vim
+let g:qs_second_occurrence_highlight_color = '#5fffff'  " gui vim
+let g:qs_second_occurrence_highlight_color = 81         " terminal vim
 " }}}
 
 " ################### 快速选中 ###################
