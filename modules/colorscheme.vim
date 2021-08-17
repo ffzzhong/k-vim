@@ -31,6 +31,11 @@ endif
 set background=dark
 let $BAT_THEME="gruvbox-dark"
 let g:airline_theme='gruvbox'
+" 增强对比度
+" let g:gruvbox_contrast_dark='hard'
+" 允许斜体
+let g:gruvbox_italic=1
+" visual 模式下的颜色
 let g:gruvbox_invert_selection=0
 " 这个用来 override 侧边栏语法错误和告警的样式, enable 可能导致 crash
 let g:gruvbox_invert_signs=0

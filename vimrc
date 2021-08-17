@@ -8,7 +8,7 @@ source $HOME/.config/nvim/modules/filetype.vim
 " plugins
 source $HOME/.config/nvim/modules/fzf.vim
 source $HOME/.config/nvim/modules/coc.vim
-" source $HOME/.config/nvim/modules/vim-go.vim
+source $HOME/.config/nvim/modules/vim-go.vim
 " source $HOME/.config/nvim/modules/lsp.vim
 source $HOME/.config/nvim/modules/airline.vim
 source $HOME/.config/nvim/modules/nerdtree.vim

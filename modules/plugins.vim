@@ -100,9 +100,14 @@ Plug 'preservim/nerdtree' |
             \ Plug 'Xuyuanp/nerdtree-git-plugin' |
             \ Plug 'ryanoasis/vim-devicons'
 
-" if count(g:bundle_groups, 'golang')
-"     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" endif
+if count(g:bundle_groups, 'golang')
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+endif
+
+if count(g:bundle_groups, 'thrift')
+    Plug 'solarnz/thrift.vim'
+endif
+"
 
 " Plug 'neovim/nvim-lspconfig'
 

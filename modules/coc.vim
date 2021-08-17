@@ -47,12 +47,13 @@ inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " open yank list
-nnoremap <silent> <leader>ya  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <leader>ya  :<C-u>CocFzfList yank<cr>
 
 " diagnostics
 nmap <silent> <Leader>ep <Plug>(coc-diagnostic-prev)
 nmap <silent> <Leader>en <Plug>(coc-diagnostic-next)
-nnoremap <silent> <Leader>es :CocDiagnostics<CR>
+" nnoremap <silent> <Leader>es :CocDiagnostics<CR>
+nnoremap <silent> <Leader>es  :CocFzfList diagnostics<cr>
 
 " GoTo code navigation.
 nmap <leader>jd <Plug>(coc-definition)
@@ -159,3 +160,8 @@ nmap <leader>fix  <Plug>(coc-fix-current)
 
 "nnoremap <leader>n :CocCommand explorer --toggle --no-focus<CR>
 "nnoremap <Leader>a :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+"
+"
+" coc-go
+" add missing imports on save
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')

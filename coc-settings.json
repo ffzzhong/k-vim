@@ -1,4 +1,14 @@
 {
+  "coc.preferences.jumpCommand": "CocSplitIfNotOpen",
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "json",
+    "python",
+    "java",
+    "yaml",
+    "proto",
+    "go"
+  ],
   "suggest.detailMaxLength": 20,
   "suggest.noselect": false,
   "suggest.disableMenu": true,
@@ -31,15 +41,6 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
-  "coc.preferences.formatOnSaveFiletypes": [
-    "json",
-    "python",
-    "java",
-    "yaml",
-    "proto"
-  ],
-  "coc.preferences.jumpCommand": "CocSplitIfNotOpen",
-  "sh.enable": true,
   "python.formatting.provider": "black",
   "python.pythonPath": "/Users/lingfengzhong/.pyenv/versions/3.9.5/bin/python",
   "yaml.format.enable": true,
@@ -47,10 +48,7 @@
   "yaml.schemas": {
     "kubernetes": "/*.yaml"
   },
-  "yaml.customTags": [
-    "!com.rakuten.dess.config.dataset.cloudstorage.CloudStorageConsumerConfig consumer",
-    "!com.rakuten.dess.config.dataset.cloudstorage.CloudStorageProducerConfig producer"
-  ],
+  "go.goplsPath": "/Users/lingfengzhong/go_repos/bin/gopls",
   "java.configuration.runtimes": [
     {
       "name": "JavaSE-1.8",
