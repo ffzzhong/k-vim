@@ -64,7 +64,7 @@ xmap <Leader>? <plug>(fzf-maps-x)
 omap <Leader>? <plug>(fzf-maps-o)
 
 " 用惯了ag命令，实际上是在call Rg
-nnoremap <Leader>ag :Rg<CR>
+nnoremap <Leader>rg :Rg<CR>
 nnoremap <Leader>bs :Buffers<CR>
 " modify by ffz, BTags 不常用，让给"跳转到tagbar具体位置", 2021.07.22
 " nnoremap <Leader>t :BTags<CR>
