@@ -13,9 +13,9 @@ call plug#begin('~/.config/nvim/bundle')
 
 "command-line fuzzy finder
 "在 mac 上，先用 brew install fzf, 然后 Plug ‘/usr/local/opt/fzf’
-Plug '/usr/local/opt/fzf'
+" Plug '/usr/local/opt/fzf'
 "如果不在 mac 上，可以用 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " autoformat
@@ -83,7 +83,6 @@ Plug 'tomasr/molokai'
 
 " color schemes
 Plug 'rakr/vim-one'
-Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'tomasr/molokai'
@@ -96,18 +95,32 @@ Plug 'vim-airline/vim-airline-themes'
 
 " 文件树
 " nerdtree nerdtreetabs
-Plug 'preservim/nerdtree' |
-            \ Plug 'Xuyuanp/nerdtree-git-plugin' |
-            \ Plug 'ryanoasis/vim-devicons'
+" Plug 'preservim/nerdtree' |
+"             \ Plug 'Xuyuanp/nerdtree-git-plugin' |
+"             \ Plug 'ryanoasis/vim-devicons'
+
+if count(g:bundle_groups, 'python')
+    let g:python3_host_prog = '~/.pyenv/shims/python'
+endif
 
 if count(g:bundle_groups, 'golang')
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+endif
+
+if count(g:bundle_groups, 'Jenkinsfile')
+    " add by ffz
+    " recognize Jenkinsfile as a groovy script
+    Plug 'martinda/Jenkinsfile-vim-syntax'
 endif
 
 if count(g:bundle_groups, 'thrift')
     Plug 'solarnz/thrift.vim'
 endif
 "
+
+Plug 'camspiers/animate.vim'
+" Plug 'camspiers/lens.vim'
+Plug 'ipod825/lens.vim', {'branch': 'fixfilter'}
 
 " Plug 'neovim/nvim-lspconfig'
 

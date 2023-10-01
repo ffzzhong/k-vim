@@ -169,7 +169,7 @@ map Y y$
 " add by ffz 2021-02-20 18:54
 " yank a region in vim without the cursor moving to the top of the block
 " 复制选中区到系统剪切板中
-vnoremap <leader>y "+ygv<Esc>
+" vnoremap <leader>y "+ygv<Esc>
 
 " Keep search pattern at the center of the screen.
 nnoremap <silent> n nzz
@@ -179,15 +179,15 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 " auto jump to end of select
- vnoremap <silent> y y`]
- vnoremap <silent> p p`]
- nnoremap <silent> p p`]
+" vnoremap <silent> y y`]
+" vnoremap <silent> p p`]
+" nnoremap <silent> p p`]
 
 " add by ffz 2021-02-20 18:49
 " yank a region in vim without the cursor moving to the top of the block
 " https://stackoverflow.com/questions/3806629/yank-a-region-in-vim-without-the-cursor-moving-to-the-top-of-the-block
 " adjust <leader>y as well
-"vnoremap y ygv<Esc>
+" vnoremap y ygv<Esc>
 
 " add by ffz, 2020.12.17
 " 一次复制，多次粘贴

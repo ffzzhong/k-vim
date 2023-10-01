@@ -9,9 +9,8 @@
     "proto",
     "go"
   ],
-  "suggest.detailMaxLength": 20,
+  "suggest.labelMaxLength": 20,
   "suggest.noselect": false,
-  "suggest.disableMenu": true,
   "suggest.removeDuplicateItems": true,
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
@@ -41,8 +40,35 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
+  "pyright.enable": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportCallInDefaultInitializer": "none",
+    "reportDuplicateImport": "warning",
+    "reportGeneralTypeIssues": "none",
+    "reportMissingParameterType": "none",
+    "reportMissingImports": "error",
+    "reportMissingTypeStubs": "none",
+    "reportOptionalMemberAccess": "none",
+    "reportOptionalOperand": "none",
+    "reportPropertyTypeMismatch": "none",
+    "reportTypeCommentUsage": "none",
+    "reportUninitializedInstanceVariable": "none",
+    "reportUnusedImport": "warning",
+    "reportUnusedVariable": "warning",
+    "reportUnnecessaryCast": "none",
+    "reportUnnecessaryComparison": "none",
+    "reportUnnecessaryIsInstance": "none",
+    "reportUnnecessaryTypeIgnoreComment": "none"
+  },
+  "python.pythonPath": "python",
   "python.formatting.provider": "black",
-  "python.pythonPath": "/Users/lingfengzhong/.pyenv/versions/3.9.5/bin/python",
+  "python.formatting.blackPath": "~/.pyenv/shims/black",
+  "python.linting.enabled": true,
+  "python.linting.ruffEnabled": true,
+  "python.linting.ruffPath": "~/.pyenv/shims/ruff",
+  "python.sortImports.path": "~/.pyenv/shims/isort",
+  "pyright.completion.snippetSupport": true,
   "yaml.format.enable": true,
   "yaml.validate": false,
   "yaml.schemas": {
@@ -61,13 +87,25 @@
   ],
   "yank.enableCompletion": false,
   "yank.priority": 1,
+  "explorer.file.hiddenRules": {
+    "extensions": [
+      "o",
+      "a",
+      "obj",
+      "pyc"
+    ],
+    "filenames": [
+      "venv",
+      ".git"
+    ],
+    "patternMatches": []
+  },
   "explorer.width": 30,
   "explorer.buffer.root.template": "[icon] [title] [hidden & 1]",
   "explorer.file.root.template": "[icon] [title] [root] [hidden & 1]",
   "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
-  "explorer.file.reveal.auto": false,
+  "explorer.file.reveal.auto": true,
   "explorer.icon.enableNerdfont": true,
-  "explorer.previewAction.onHover": false,
   "explorer.focus": true,
   "explorer.keyMappings.global": {
     "o": [

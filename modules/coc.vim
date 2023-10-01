@@ -27,6 +27,8 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -43,23 +45,24 @@ let g:coc_snippet_prev = '<C-k>'
 " end 2020.12.24
 
 " update by ffz, use ctrl + j/k to move up/down when choosing a completion item
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <expr> <C-j> coc#pum#visible() ? coc#pum#next(1) : "\<C-j>"
+inoremap <expr> <C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-k>"
+
 
 " open yank list
 nnoremap <silent> <leader>ya  :<C-u>CocFzfList yank<cr>
 
 " diagnostics
-nmap <silent> <Leader>ep <Plug>(coc-diagnostic-prev)
-nmap <silent> <Leader>en <Plug>(coc-diagnostic-next)
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
 " nnoremap <silent> <Leader>es :CocDiagnostics<CR>
 nnoremap <silent> <Leader>es  :CocFzfList diagnostics<cr>
 
 " GoTo code navigation.
-nmap <leader>jd <Plug>(coc-definition)
-nmap <leader>jt <Plug>(coc-type-definition)
-nmap <leader>ji <Plug>(coc-implementation)
-nmap <leader>jr <Plug>(coc-references)
+nmap gd <Plug>(coc-definition)
+nmap gt <Plug>(coc-type-definition)
+nmap gi <Plug>(coc-implementation)
+nmap gr <Plug>(coc-references)
 " usage:
 " go the difinition with vsplit if the definition is in another file
 " and if the definition is just in the same file, then only move the cursor
@@ -129,37 +132,40 @@ nmap <leader>ac  <plug>(coc-codeaction-selected)
 nmap <leader>rn <Plug>(coc-rename)
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>fix  <Plug>(coc-fix-current)
 
 
 "" coc-explorer
-"augroup MyCocExplorer
-  "autocmd!
-  "autocmd VimEnter * sil! au! F
-  "" set window status line
-  "autocmd FileType coc-explorer setl statusline=File-Explorer
-  ""quit explorer whein it's the last
-  "autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
-  "" Make sure nothing opened in coc-explorer buffer
-  "autocmd BufEnter * if bufname('#') =~# "\[coc-explorer\]-." && winnr('$') > 1 | b# | endif
-  "" open if directory specified or if buffer empty
-  "autocmd VimEnter * let d = expand('%:p')
-    "\ | if argc() == 0
-      "\ | exe 'CocCommand explorer --sources buffer,file+'
-    "\ | elseif isdirectory(d) || (bufname()=='')
-      "\ | silent! bd
-      "\ | exe 'CocCommand explorer --sources buffer,file+ ' . d
-      "\ | exe 'cd ' . d
-    "\ | else
-      "\ | cd %:p:h
-    "\ | endif
-  "" cd after open
-  "autocmd User CocExplorerOpenPost let dir = getcwd() | call CocActionAsync("runCommand", "explorer.doAction", "closest", {"name": "cd", "args": [dir]})
-"augroup END
+augroup MyCocExplorer
+    " autocmd!
+    " autocmd VimEnter * sil! au! F
+    " set window status line
+    autocmd FileType coc-explorer setl statusline=File-Explorer
+    "quit explorer whein it's the last
+    autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+    " " Make sure nothing opened in coc-explorer buffer
+    " autocmd BufEnter * if bufname('#') =~# "\[coc-explorer\]-." && winnr('$') > 1 | b# | endif
 
-"nnoremap <leader>n :CocCommand explorer --toggle --no-focus<CR>
-"nnoremap <Leader>a :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+    " have vim start coc-explorer if vim started with folder
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'CocCommand explorer' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+    " " open if directory specified or if buffer empty
+    " autocmd VimEnter * let d = expand('%:p')
+    "     \ | if argc() == 0
+    "     \ | exe 'CocCommand explorer --sources buffer+,file+'
+    "     \ | elseif isdirectory(d) || (bufname()=='')
+    "     \ | silent! bd
+    "     \ | exe 'CocCommand explorer --sources buffer+,file+ ' . d
+    "     \ | exe 'cd ' . d
+    "     \ | else
+    "     \ | cd %:p:h
+    "     \ | endif
+    " " cd after open
+    autocmd User CocExplorerOpenPost let dir = getcwd() | call CocActionAsync("runCommand", "explorer.doAction", "closest", {"name": "cd", "args": [dir]})
+augroup END
+
+nnoremap <leader>n :CocCommand explorer --toggle --no-focus<CR>
+nnoremap <Leader>a :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
 "
 "
 " coc-go

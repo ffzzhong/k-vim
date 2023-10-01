@@ -165,6 +165,9 @@ set formatoptions+=B
 " highlight, 突出显示当前行
 set cursorline
 
+" 使用全局clipboard
+set clipboard+=unnamedplus
+
 " ruler
 " 超过定义的长度则显示异常
 if exists('+colorcolumn')

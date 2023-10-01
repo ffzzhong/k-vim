@@ -46,13 +46,6 @@ colorscheme gruvbox
 " 每次新打开 vim 时就会有很多空行, 这个设置可以用来隐藏空行的波浪线~，
 highlight EndOfBuffer guifg=bg
 "
-" onedark
-" let $BAT_THEME="OneHalfDark"
-" let g:onedark_hide_endofbuffer=1
-" let g:onedark_terminal_italics=1
-" let g:airline_theme='onedark'
-" colorscheme onedark
-"
 " one
 " set background=dark
 " let g:one_allow_italics=1
