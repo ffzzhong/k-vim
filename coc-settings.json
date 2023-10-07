@@ -51,6 +51,7 @@
     "reportMissingTypeStubs": "none",
     "reportOptionalMemberAccess": "none",
     "reportOptionalOperand": "none",
+    "reportOptionalIterable": "none",
     "reportPropertyTypeMismatch": "none",
     "reportTypeCommentUsage": "none",
     "reportUninitializedInstanceVariable": "none",
@@ -100,7 +101,8 @@
     ],
     "patternMatches": []
   },
-  "explorer.width": 30,
+  "explorer.contentWidthType": "win-width",
+  "explorer.width": 40,
   "explorer.buffer.root.template": "[icon] [title] [hidden & 1]",
   "explorer.file.root.template": "[icon] [title] [root] [hidden & 1]",
   "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
@@ -108,6 +110,10 @@
   "explorer.icon.enableNerdfont": true,
   "explorer.focus": true,
   "explorer.keyMappings.global": {
+    "l": false,
+    "L": false,
+    "h": false,
+    "H": false,
     "o": [
       "expandable?",
       [
@@ -121,6 +127,7 @@
     "s": "open:split",
     "ma": "addFile",
     "mA": "addDirectory",
-    "mm": "rename"
+    "mm": "rename",
+    "md": "delete"
   }
 }

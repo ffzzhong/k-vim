@@ -28,23 +28,23 @@ if has("gui_running")
 endif
 
 " gruvbox, true color
-set background=dark
-let $BAT_THEME="gruvbox-dark"
-let g:airline_theme='gruvbox'
-" 增强对比度
-" let g:gruvbox_contrast_dark='hard'
-" 允许斜体
-let g:gruvbox_italic=1
-" visual 模式下的颜色
-let g:gruvbox_invert_selection=0
-" 这个用来 override 侧边栏语法错误和告警的样式, enable 可能导致 crash
-let g:gruvbox_invert_signs=0
-let g:gitgutter_override_sign_column_highlight=1
-" 这个是用来移除vertical split 的那条线
-" set fillchars+=vert:\ 
-colorscheme gruvbox
-" 每次新打开 vim 时就会有很多空行, 这个设置可以用来隐藏空行的波浪线~，
-highlight EndOfBuffer guifg=bg
+" set background=dark
+" let $BAT_THEME="gruvbox-dark"
+" let g:airline_theme='gruvbox'
+" " 增强对比度
+" " let g:gruvbox_contrast_dark='hard'
+" " 允许斜体
+" let g:gruvbox_italic=1
+" " visual 模式下的颜色
+" let g:gruvbox_invert_selection=0
+" " 这个用来 override 侧边栏语法错误和告警的样式, enable 可能导致 crash
+" let g:gruvbox_invert_signs=0
+" let g:gitgutter_override_sign_column_highlight=1
+" " 这个是用来移除vertical split 的那条线
+" " set fillchars+=vert:\ 
+" colorscheme gruvbox
+" " 每次新打开 vim 时就会有很多空行, 这个设置可以用来隐藏空行的波浪线~，
+" highlight EndOfBuffer guifg=bg
 "
 " one
 " set background=dark
@@ -63,3 +63,13 @@ highlight EndOfBuffer guifg=bg
 "
 " molokai
  " colorscheme molokai
+ "
+" catppuccin
+set background=dark
+let g:airline_theme = 'catppuccin'
+colorscheme catppuccin " catppuccin catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
+
+" tokyonight
+" set background=dark
+" let g:airline_theme = "tokyonight"
+" colorscheme tokyonight-moon " tokyonight tokyonight-night tokyonight-storm tokyonight-day tokyonight-moon

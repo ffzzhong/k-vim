@@ -24,12 +24,12 @@ set signcolumn=yes
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ CheckBackspace() ? "\<TAB>" :
       \ coc#refresh()
 
 inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
-function! s:check_back_space() abort
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -98,15 +98,25 @@ let g:coc_fzf_opts = []
 " end 2020.11.24
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   elseif (coc#rpc#ready())
+"     call CocActionAsync('doHover')
+"   else
+"     execute '!' . &keywordprg . " " . expand('<cword>')
+"   endif
+" endfunction
+
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
@@ -165,7 +175,7 @@ augroup MyCocExplorer
 augroup END
 
 nnoremap <leader>n :CocCommand explorer --toggle --no-focus<CR>
-nnoremap <Leader>a :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+" nnoremap <leader>a <Cmd>call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
 "
 "
 " coc-go

@@ -5,7 +5,7 @@ filetype off " required! turn off
 "################### 插件管理 ###################
 "inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    let g:bundle_groups=['thrift', 'golang', 'python', 'json', 'yaml', 'Jenkinsfile', 'terraform', 'mustache', 'Dockerfile', 'markdown']
+    let g:bundle_groups=['thrift', 'python', 'json', 'yaml', 'Jenkinsfile', 'terraform', 'ansible']
 endif
 
 "使用 vim-plug 管理插件
@@ -86,6 +86,8 @@ Plug 'rakr/vim-one'
 Plug 'morhetz/gruvbox'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'tomasr/molokai'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'folke/tokyonight.nvim', {'as': 'tokyonight'}
 
 " airline
 " 状态栏增强展示
@@ -116,7 +118,12 @@ endif
 if count(g:bundle_groups, 'thrift')
     Plug 'solarnz/thrift.vim'
 endif
-"
+
+if count(g:bundle_groups, 'ansible')
+    Plug 'pearofducks/ansible-vim'
+    let g:coc_filetype_map = {'yaml.ansible': 'ansible'}
+endif
+
 
 Plug 'camspiers/animate.vim'
 " Plug 'camspiers/lens.vim'
