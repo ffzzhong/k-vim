@@ -72,4 +72,4 @@ colorscheme catppuccin " catppuccin catppuccin-latte, catppuccin-frappe, catppuc
 " tokyonight
 " set background=dark
 " let g:airline_theme = "tokyonight"
-" colorscheme tokyonight-moon " tokyonight tokyonight-night tokyonight-storm tokyonight-day tokyonight-moon
+" colorscheme tokyonight-night " tokyonight tokyonight-night tokyonight-storm tokyonight-day tokyonight-moon

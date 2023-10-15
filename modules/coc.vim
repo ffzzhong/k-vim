@@ -180,4 +180,6 @@ nnoremap <leader>n :CocCommand explorer --toggle --no-focus<CR>
 "
 " coc-go
 " add missing imports on save
-autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go,*.py :silent! call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd BufWritePre *.py silent! :call CocAction('runCommand', 'python.sortImports')
+" autocmd BufWrite *.py :CocCommand python.sortImports

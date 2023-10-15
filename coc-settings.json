@@ -9,7 +9,7 @@
     "proto",
     "go"
   ],
-  "suggest.labelMaxLength": 20,
+  "suggest.labelMaxLength": 50,
   "suggest.noselect": false,
   "suggest.removeDuplicateItems": true,
   "suggest.completionItemKindLabels": {
@@ -62,13 +62,14 @@
     "reportUnnecessaryIsInstance": "none",
     "reportUnnecessaryTypeIgnoreComment": "none"
   },
-  "python.pythonPath": "python",
+  "python.pythonPath": "~/.pyenv/shims/python",
   "python.formatting.provider": "black",
-  "python.formatting.blackPath": "~/.pyenv/shims/black",
+  "python.formatting.blackPath": "black",
   "python.linting.enabled": true,
   "python.linting.ruffEnabled": true,
-  "python.linting.ruffPath": "~/.pyenv/shims/ruff",
-  "python.sortImports.path": "~/.pyenv/shims/isort",
+  "python.linting.ruffPath": "ruff",
+  "python.sortImports.path": "isort",
+  "pyright.organizeimports.provider": "isort",
   "pyright.completion.snippetSupport": true,
   "yaml.format.enable": true,
   "yaml.validate": false,
@@ -108,7 +109,7 @@
   "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
   "explorer.file.reveal.auto": true,
   "explorer.icon.enableNerdfont": true,
-  "explorer.focus": true,
+  "explorer.focus": false,
   "explorer.keyMappings.global": {
     "l": false,
     "L": false,
