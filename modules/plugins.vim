@@ -95,6 +95,9 @@ Plug 'folke/tokyonight.nvim', {'as': 'tokyonight'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" 加快 jk move
+Plug 'rainbowhxch/accelerated-jk.nvim'
+
 " 文件树
 " nerdtree nerdtreetabs
 " Plug 'preservim/nerdtree' |

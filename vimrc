@@ -6,6 +6,7 @@ source $HOME/.config/nvim/modules/filetype.vim
 
 
 " plugins
+source $HOME/.config/nvim/modules/accelerated-jk.vim
 source $HOME/.config/nvim/modules/fzf.vim
 source $HOME/.config/nvim/modules/coc.vim
 source $HOME/.config/nvim/modules/vim-go.vim
