@@ -174,10 +174,10 @@ augroup MyCocExplorer
     autocmd User CocExplorerOpenPost let dir = getcwd() | call CocActionAsync("runCommand", "explorer.doAction", "closest", {"name": "cd", "args": [dir]})
 augroup END
 
-nnoremap <leader>n :CocCommand explorer --toggle --no-focus<CR>
-" nnoremap <leader>a <Cmd>call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
-"
-"
+nnoremap <silent><leader>n :CocCommand explorer --toggle --no-focus<CR>
+" nnoremap <silent><leader>a :call CocActionAsync('runCommand', 'explorer', '--focus', '--no-toggle')<cr>
+nnoremap <silent><leader>a :CocCommand explorer --focus --no-toggle<CR>
+
 " coc-go
 " add missing imports on save
 autocmd BufWritePre *.go,*.py :silent! call CocAction('runCommand', 'editor.action.organizeImport')

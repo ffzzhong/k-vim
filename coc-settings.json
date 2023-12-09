@@ -9,6 +9,20 @@
     "proto",
     "go"
   ],
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": [
+        "serve"
+      ],
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  },
   "suggest.labelMaxLength": 50,
   "suggest.noselect": false,
   "suggest.removeDuplicateItems": true,
@@ -72,6 +86,7 @@
   "pyright.organizeimports.provider": "isort",
   "pyright.completion.snippetSupport": true,
   "yaml.format.enable": true,
+  "yaml.format.bracketSpacing": false,
   "yaml.validate": false,
   "yaml.schemas": {
     "kubernetes": "/*.yaml"
@@ -98,7 +113,8 @@
     ],
     "filenames": [
       "venv",
-      ".git"
+      ".git",
+      "__pycache__"
     ],
     "patternMatches": []
   },
