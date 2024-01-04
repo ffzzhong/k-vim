@@ -13,6 +13,8 @@ autocmd BufRead,BufNewFile *.template set filetype=template
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 " modify by ffz, add config for ruby
 autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+" modify by ffz, add config for jenkinsfile
+autocmd BufRead,BufNewFile jenkinsfile,Jenkinsfile set filetype=Jenkinsfile
 
 " disable showmatch when use > in php
 au BufWinEnter *.php set mps-=<:>

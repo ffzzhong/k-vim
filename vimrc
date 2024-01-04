@@ -21,3 +21,4 @@ source $HOME/.config/nvim/modules/close-buffers.vim
 source $HOME/.config/nvim/modules/vim-multiple-cursors.vim
 source $HOME/.config/nvim/modules/easymotion.vim
 source $HOME/.config/nvim/modules/lens.vim
+source $HOME/.config/nvim/modules/indent-blandline.lua

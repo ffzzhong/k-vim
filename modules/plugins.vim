@@ -134,4 +134,6 @@ Plug 'ipod825/lens.vim', {'branch': 'fixfilter'}
 
 " Plug 'neovim/nvim-lspconfig'
 
+Plug 'lukas-reineke/indent-blankline.nvim'
+
 call plug#end()
