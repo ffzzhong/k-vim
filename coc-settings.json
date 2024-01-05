@@ -114,6 +114,7 @@
     "filenames": [
       "venv",
       ".git",
+      ".DS_Store",
       "__pycache__"
     ],
     "patternMatches": []
